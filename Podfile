@@ -13,4 +13,5 @@ target 'Tpeso' do
   pod 'UIColor_Hex_Swift'
   pod 'IQKeyboardManagerSwift'
   pod 'TYAlertController'
+  pod 'RxGesture'
 end

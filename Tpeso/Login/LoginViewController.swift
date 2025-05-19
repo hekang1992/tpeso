@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RxGesture
 
 class LoginViewController: BaseViewController {
+    
+    var timer: Timer?
+    var timeRemaining = 60
     
     lazy var ctImageView: UIImageView = {
         let ctImageView = UIImageView()
@@ -114,10 +118,10 @@ class LoginViewController: BaseViewController {
         sendBtn.contentHorizontalAlignment = .right
         return sendBtn
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.addSubview(ctImageView)
         ctImageView.snp.makeConstraints { make in
@@ -202,17 +206,32 @@ class LoginViewController: BaseViewController {
             make.right.equalToSuperview().offset(-15)
             make.size.equalTo(CGSize(width: 180, height: 50))
         }
+        
+        sendBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            sendBtn.isEnabled = false
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
+        }).disposed(by: disposeBag)
+        
+        sureBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            UIApplication.shared.windows.first?.rootViewController = HomeViewController()
+        }).disposed(by: disposeBag)
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func updateCountdown() {
+        timeRemaining -= 1
+        sendBtn.setTitle("\(timeRemaining)", for: .normal)
+        if timeRemaining <= 0 {
+            timer?.invalidate()
+            timer = nil
+            sendBtn.isEnabled = true
+            sendBtn.setTitle("Send text messages", for: .normal)
+        }
     }
-    */
-
+    
+    deinit {
+        timer?.invalidate()
+    }
 }

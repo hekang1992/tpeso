@@ -43,6 +43,9 @@ PODS:
   - RxCocoa (6.9.0):
     - RxRelay (= 6.9.0)
     - RxSwift (= 6.9.0)
+  - RxGesture (4.0.4):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxRelay (6.9.0):
     - RxSwift (= 6.9.0)
   - RxSwift (6.9.0)
@@ -54,6 +57,7 @@ DEPENDENCIES:
   - Alamofire
   - IQKeyboardManagerSwift
   - RxCocoa
+  - RxGesture
   - RxSwift
   - SnapKit
   - TYAlertController
@@ -71,6 +75,7 @@ SPEC REPOS:
     - IQTextInputViewNotification
     - IQTextView
     - RxCocoa
+    - RxGesture
     - RxRelay
     - RxSwift
     - SnapKit
@@ -88,12 +93,13 @@ SPEC CHECKSUMS:
   IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
   IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
   RxCocoa: ac16414696ae706516be3e1ab00fcce5bdc9be8a
+  RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
   RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
   UIColor_Hex_Swift: 20cb4e8d51b63e168a9da6933bc5d39cd8fb4ab5
 
-PODFILE CHECKSUM: 537f6d430acd65886dbd9da2e434ffebb682b156
+PODFILE CHECKSUM: a7a2681a59f667849b0ff8fc696df205248285f4
 
 COCOAPODS: 1.16.2

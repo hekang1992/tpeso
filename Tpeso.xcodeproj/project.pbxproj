@@ -16,6 +16,7 @@
 		738793E62DDB22870000FA60 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793E52DDB22870000FA60 /* BaseNavigationController.swift */; };
 		738793E82DDB22F90000FA60 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793E72DDB22F90000FA60 /* HomeViewController.swift */; };
 		738793EA2DDB23030000FA60 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793E92DDB23030000FA60 /* LoginViewController.swift */; };
+		738793EC2DDB32060000FA60 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793EB2DDB32010000FA60 /* Home.swift */; };
 		B6E6CA939563A0B4087FA28E /* Pods_Tpeso.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376872DC97D8FC2F58C37D7C /* Pods_Tpeso.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		738793E52DDB22870000FA60 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		738793E72DDB22F90000FA60 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		738793E92DDB23030000FA60 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		738793EB2DDB32010000FA60 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 		738793DD2DDB14E80000FA60 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				738793EB2DDB32010000FA60 /* Home.swift */,
 				738793E72DDB22F90000FA60 /* HomeViewController.swift */,
 			);
 			path = Home;
@@ -223,9 +226,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -245,6 +252,7 @@
 				738793E22DDB16600000FA60 /* GuideViewController.swift in Sources */,
 				738793E62DDB22870000FA60 /* BaseNavigationController.swift in Sources */,
 				738793E42DDB1A150000FA60 /* BaseView.swift in Sources */,
+				738793EC2DDB32060000FA60 /* Home.swift in Sources */,
 				738793E82DDB22F90000FA60 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
