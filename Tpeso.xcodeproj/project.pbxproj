@@ -1,0 +1,487 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		738793D72DDB13F30000FA60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 738793D22DDB13F30000FA60 /* Assets.xcassets */; };
+		738793D92DDB13F30000FA60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 738793D52DDB13F30000FA60 /* LaunchScreen.storyboard */; };
+		738793DA2DDB13F30000FA60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793D12DDB13F30000FA60 /* AppDelegate.swift */; };
+		738793E02DDB164F0000FA60 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793DF2DDB164F0000FA60 /* BaseViewController.swift */; };
+		738793E22DDB16600000FA60 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793E12DDB16600000FA60 /* GuideViewController.swift */; };
+		738793E42DDB1A150000FA60 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793E32DDB1A150000FA60 /* BaseView.swift */; };
+		738793E62DDB22870000FA60 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793E52DDB22870000FA60 /* BaseNavigationController.swift */; };
+		738793E82DDB22F90000FA60 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793E72DDB22F90000FA60 /* HomeViewController.swift */; };
+		738793EA2DDB23030000FA60 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793E92DDB23030000FA60 /* LoginViewController.swift */; };
+		B6E6CA939563A0B4087FA28E /* Pods_Tpeso.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376872DC97D8FC2F58C37D7C /* Pods_Tpeso.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0B452762CA0B9CB15517F4DC /* Pods-Tpeso.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tpeso.debug.xcconfig"; path = "Target Support Files/Pods-Tpeso/Pods-Tpeso.debug.xcconfig"; sourceTree = "<group>"; };
+		376872DC97D8FC2F58C37D7C /* Pods_Tpeso.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tpeso.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		727D0DEFF72C50513E6DA052 /* Pods-Tpeso.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tpeso.release.xcconfig"; path = "Target Support Files/Pods-Tpeso/Pods-Tpeso.release.xcconfig"; sourceTree = "<group>"; };
+		738793B92DDB13BA0000FA60 /* Tpeso.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tpeso.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		738793D12DDB13F30000FA60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		738793D22DDB13F30000FA60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		738793D32DDB13F30000FA60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		738793D42DDB13F30000FA60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		738793DF2DDB164F0000FA60 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		738793E12DDB16600000FA60 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		738793E32DDB1A150000FA60 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		738793E52DDB22870000FA60 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		738793E72DDB22F90000FA60 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		738793E92DDB23030000FA60 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		738793B62DDB13BA0000FA60 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6E6CA939563A0B4087FA28E /* Pods_Tpeso.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		620F4C3A2526D971015A444F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				376872DC97D8FC2F58C37D7C /* Pods_Tpeso.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		738793B02DDB13BA0000FA60 = {
+			isa = PBXGroup;
+			children = (
+				738793D62DDB13F30000FA60 /* Tpeso */,
+				738793BA2DDB13BA0000FA60 /* Products */,
+				C7B774AD8C06B339FA83AD60 /* Pods */,
+				620F4C3A2526D971015A444F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		738793BA2DDB13BA0000FA60 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				738793B92DDB13BA0000FA60 /* Tpeso.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		738793D62DDB13F30000FA60 /* Tpeso */ = {
+			isa = PBXGroup;
+			children = (
+				738793D32DDB13F30000FA60 /* Info.plist */,
+				738793D22DDB13F30000FA60 /* Assets.xcassets */,
+				738793D12DDB13F30000FA60 /* AppDelegate.swift */,
+				738793D52DDB13F30000FA60 /* LaunchScreen.storyboard */,
+				738793DB2DDB14D70000FA60 /* Login */,
+				738793DD2DDB14E80000FA60 /* Home */,
+				738793DC2DDB14E50000FA60 /* Base */,
+			);
+			path = Tpeso;
+			sourceTree = "<group>";
+		};
+		738793DB2DDB14D70000FA60 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				738793E92DDB23030000FA60 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		738793DC2DDB14E50000FA60 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				738793E32DDB1A150000FA60 /* BaseView.swift */,
+				738793DF2DDB164F0000FA60 /* BaseViewController.swift */,
+				738793E12DDB16600000FA60 /* GuideViewController.swift */,
+				738793E52DDB22870000FA60 /* BaseNavigationController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		738793DD2DDB14E80000FA60 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				738793E72DDB22F90000FA60 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		C7B774AD8C06B339FA83AD60 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0B452762CA0B9CB15517F4DC /* Pods-Tpeso.debug.xcconfig */,
+				727D0DEFF72C50513E6DA052 /* Pods-Tpeso.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		738793B82DDB13BA0000FA60 /* Tpeso */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 738793CC2DDB13BB0000FA60 /* Build configuration list for PBXNativeTarget "Tpeso" */;
+			buildPhases = (
+				26B0E33F5CA1DDF06ADC013B /* [CP] Check Pods Manifest.lock */,
+				738793B52DDB13BA0000FA60 /* Sources */,
+				738793B62DDB13BA0000FA60 /* Frameworks */,
+				738793B72DDB13BA0000FA60 /* Resources */,
+				73E3A14555F0521669952556 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tpeso;
+			productName = Tpeso;
+			productReference = 738793B92DDB13BA0000FA60 /* Tpeso.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		738793B12DDB13BA0000FA60 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					738793B82DDB13BA0000FA60 = {
+						CreatedOnToolsVersion = 16.3;
+					};
+				};
+			};
+			buildConfigurationList = 738793B42DDB13BA0000FA60 /* Build configuration list for PBXProject "Tpeso" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 738793B02DDB13BA0000FA60;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 738793BA2DDB13BA0000FA60 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				738793B82DDB13BA0000FA60 /* Tpeso */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		738793B72DDB13BA0000FA60 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				738793D72DDB13F30000FA60 /* Assets.xcassets in Resources */,
+				738793D92DDB13F30000FA60 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26B0E33F5CA1DDF06ADC013B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tpeso-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73E3A14555F0521669952556 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		738793B52DDB13BA0000FA60 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				738793EA2DDB23030000FA60 /* LoginViewController.swift in Sources */,
+				738793DA2DDB13F30000FA60 /* AppDelegate.swift in Sources */,
+				738793E02DDB164F0000FA60 /* BaseViewController.swift in Sources */,
+				738793E22DDB16600000FA60 /* GuideViewController.swift in Sources */,
+				738793E62DDB22870000FA60 /* BaseNavigationController.swift in Sources */,
+				738793E42DDB1A150000FA60 /* BaseView.swift in Sources */,
+				738793E82DDB22F90000FA60 /* HomeViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		738793D52DDB13F30000FA60 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				738793D42DDB13F30000FA60 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		738793CD2DDB13BB0000FA60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B452762CA0B9CB15517F4DC /* Pods-Tpeso.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XS8842FK7N;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tpeso/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "T Peso";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = test.app.ald.com;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = testappaldprofile;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		738793CE2DDB13BB0000FA60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 727D0DEFF72C50513E6DA052 /* Pods-Tpeso.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XS8842FK7N;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tpeso/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "T Peso";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = test.app.ald.com;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = testappaldprofile;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		738793CF2DDB13BB0000FA60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		738793D02DDB13BB0000FA60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		738793B42DDB13BA0000FA60 /* Build configuration list for PBXProject "Tpeso" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				738793CF2DDB13BB0000FA60 /* Debug */,
+				738793D02DDB13BB0000FA60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		738793CC2DDB13BB0000FA60 /* Build configuration list for PBXNativeTarget "Tpeso" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				738793CD2DDB13BB0000FA60 /* Debug */,
+				738793CE2DDB13BB0000FA60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 738793B12DDB13BA0000FA60 /* Project object */;
+}
