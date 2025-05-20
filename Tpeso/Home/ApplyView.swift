@@ -9,6 +9,9 @@ import UIKit
 import IQTextView
 
 class ApplyView: BaseView {
+    
+    var leftBlock: ((UILabel) -> Void)?
+    var rightBlock: ((UILabel) -> Void)?
 
     lazy var bgView: UIView = {
         let bgView = UIView()
@@ -111,6 +114,7 @@ class ApplyView: BaseView {
         leftlabel.layer.cornerRadius = 20
         leftlabel.layer.masksToBounds = true
         leftlabel.backgroundColor = UIColor("#F7F7F7")
+        leftlabel.isUserInteractionEnabled = true
         return leftlabel
     }()
     
@@ -123,6 +127,7 @@ class ApplyView: BaseView {
         rightlabel.layer.cornerRadius = 20
         rightlabel.layer.masksToBounds = true
         rightlabel.backgroundColor = UIColor("#F7F7F7")
+        rightlabel.isUserInteractionEnabled = true
         return rightlabel
     }()
     
@@ -280,6 +285,17 @@ class ApplyView: BaseView {
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-10)
         }
+        
+        leftlabel.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.leftBlock?(leftlabel)
+        }).disposed(by: disposeBag)
+        
+        rightlabel.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.rightBlock?(rightlabel)
+        }).disposed(by: disposeBag)
+        
         
     }
     

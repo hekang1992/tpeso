@@ -10,32 +10,38 @@ import TYAlertController
 
 class HomeViewController: BaseViewController {
     
+    var editGrand: Bool = false
+    var deleteGrand: Bool = false
+    
     lazy var homeView: HomeView = {
         let homeView = HomeView()
+        homeView.isHidden = true
         return homeView
+    }()
+    
+    lazy var dataView: HageDataView = {
+        let dataView = HageDataView()
+        dataView.isHidden = true
+        return dataView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.addSubview(homeView)
         homeView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
+        view.addSubview(dataView)
+        dataView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         homeView.applyBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            let compleView = ApplyView(frame: CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
-            let alertVc = TYAlertController(alert: compleView, preferredStyle: .actionSheet)!
-            self.present(alertVc, animated: true)
-            
-            compleView.completBtn.rx.tap.subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                self.dismiss(animated: true) {
-                    
-                }
-            }).disposed(by: disposeBag)
-            
+            self.editGrand = false
+            popCompleteView()
         }).disposed(by: disposeBag)
         
         homeView.settingBtn.rx.tap.subscribe(onNext: { [weak self] in
@@ -46,15 +52,251 @@ class HomeViewController: BaseViewController {
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    private func saveJourInfo(with listInfo: [String: String]) {
+        var savedArray = UserDefaults.standard.array(forKey: "JourInfoArray") as? [[String: String]] ?? []
+        savedArray.append(listInfo)
+        UserDefaults.standard.set(savedArray, forKey: "JourInfoArray")
+        UserDefaults.standard.synchronize()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            self.changUI()
+            SwiftToastHud.showToastText(form: self.view, message: "Save success")
+        }
     }
-    */
-
+    
+    func isJourNameExists(_ name: String) -> Bool {
+        if editGrand {
+            return false
+        }else {
+            let savedArray = UserDefaults.standard.array(forKey: "JourInfoArray") as? [[String: String]] ?? []
+            return savedArray.contains { $0["name"]?.lowercased() == name.lowercased() }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        changUI()
+    }
+    
+    private func changUI() {
+        let allArray = HomeListSaveMessage.loadAllJourInfo()
+        if !allArray.isEmpty && allArray.count > 0 {
+            self.homeView.isHidden = true
+            self.dataView.isHidden = false
+            
+            let name = allArray[0]["name"] ?? ""
+            self.dataView.tnameLabel.text = name
+            
+            let startTime = allArray[0]["startTime"] ?? ""
+            let endTime = allArray[0]["endTime"] ?? ""
+            
+            let money = allArray[0]["money"] ?? ""
+            self.dataView.moneyLabel.text = "\(money)₱"
+            
+            let num = String(daysFromNow(targetDateString: startTime) ?? 0)
+            
+            
+            let fullText = "Started \(num) days ago"
+            let attributedString = NSMutableAttributedString(string: fullText)
+            if let boldRange = fullText.range(of: "\(num)") {
+                let nsRange = NSRange(boldRange, in: fullText)
+                attributedString.addAttributes([
+                    .font: UIFont.boldSystemFont(ofSize: 20),
+                    .foregroundColor: UIColor.black
+                ], range: nsRange)
+            }
+            self.dataView.timeLabel.attributedText = attributedString
+            
+            self.dataView.timedescLabel.text = "\(startTime)-\(endTime)"
+            
+            self.dataView.block = { [weak self] moreBtn in
+                guard let self = self else { return }
+                let bgView = UIView()
+                bgView.backgroundColor = UIColor.black.withAlphaComponent(0.35)
+                let imageIcon = UIImageView()
+                imageIcon.image = UIImage(named: "detailmorepiong")
+                if let window = UIApplication.shared.currentKeyWindow {
+                    window.addSubview(bgView)
+                    bgView.addSubview(imageIcon)
+                    imageIcon.isUserInteractionEnabled = true
+                    let oneBtn = UIButton(type: .custom)
+                    let twoBtn = UIButton(type: .custom)
+                    imageIcon.addSubview(oneBtn)
+                    imageIcon.addSubview(twoBtn)
+                    bgView.snp.makeConstraints { make in
+                        make.edges.equalToSuperview()
+                    }
+                    imageIcon.snp.makeConstraints { make in
+                        make.right.equalTo(moreBtn.snp.right).offset(20)
+                        make.top.equalTo(moreBtn.snp.bottom).offset(-10)
+                        make.size.equalTo(CGSize(width: 114, height: 166))
+                    }
+                    oneBtn.snp.makeConstraints { make in
+                        make.top.left.right.equalToSuperview()
+                        make.height.equalTo(84)
+                    }
+                    twoBtn.snp.makeConstraints { make in
+                        make.bottom.left.right.equalToSuperview()
+                        make.height.equalTo(84)
+                    }
+                    
+                    oneBtn.rx.tap.subscribe(onNext: { [weak self] in
+                        guard let self = self else { return }
+                        bgView.removeFromSuperview()
+                        let tricpname = self.dataView.tnameLabel.text ?? ""
+                        var allArray = HomeListSaveMessage.loadAllJourInfo()
+                        for (index ,dict) in allArray.enumerated() {
+                            let name = dict["name"] ?? ""
+                            if tricpname == name {
+                                allArray.remove(at: index)
+                                UserDefaults.standard.set(allArray, forKey: "JourInfoArray")
+                                UserDefaults.standard.synchronize()
+                            }
+                        }
+                        changUI()
+                    }).disposed(by: disposeBag)
+                    
+                    twoBtn.rx.tap.subscribe(onNext: { [weak self] in
+                        guard let self = self else { return }
+                        bgView.removeFromSuperview()
+                        self.editGrand = true
+                        popCompleteView()
+                        
+                    }).disposed(by: disposeBag)
+                    
+                    bgView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+                        guard let self = self else { return }
+                        bgView.removeFromSuperview()
+                    }).disposed(by: disposeBag)
+                    
+                }
+                
+            }
+        }else {
+            self.homeView.isHidden = false
+            self.dataView.isHidden = true
+        }
+    }
+    
+    func daysFromNow(targetDateString: String, format: String = "dd/MM/yyyy") -> Int? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.timeZone = TimeZone.current
+        guard let targetDate = formatter.date(from: targetDateString) else {
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let targetDay = calendar.startOfDay(for: targetDate)
+        
+        let components = calendar.dateComponents([.day], from: today, to: targetDay)
+        return components.day
+    }
+    
+    private func popCompleteView() {
+        
+        let compleView = ApplyView(frame: CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+        let alertVc = TYAlertController(alert: compleView, preferredStyle: .actionSheet)!
+        self.present(alertVc, animated: true)
+        
+        if self.editGrand {
+            let allArray = HomeListSaveMessage.loadAllJourInfo()
+            let dict = allArray[0]
+            compleView.phoneTx.text = dict["name"] ?? ""
+            compleView.addTx.text = dict["money"] ?? ""
+            compleView.leftlabel.text = dict["startTime"] ?? ""
+            compleView.rightlabel.text = dict["endTime"] ?? ""
+            compleView.writeView.text = dict["desc"] ?? ""
+        }
+        
+        compleView.completBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            let name = compleView.phoneTx.text ?? ""
+            let money = compleView.addTx.text ?? "0"
+            var startTime = compleView.leftlabel.text ?? ""
+            if startTime.contains("time") {
+                startTime = ""
+            }
+            var endTime = compleView.rightlabel.text ?? ""
+            if endTime.contains("time") {
+                endTime = ""
+            }
+            let desc = compleView.writeView.text ?? ""
+            if name.isEmpty {
+                SwiftToastHud.showToastText(form: compleView, message: "Please enter the plan name.")
+                return
+            }else {
+                let grand = isJourNameExists(name)
+                if grand {
+                    SwiftToastHud.showToastText(form: compleView, message: "You already have a journey named \(name).")
+                    return
+                }
+            }
+            if money.isEmpty {
+                SwiftToastHud.showToastText(form: compleView, message: "Please enter the plan budegt.")
+                return
+            }else {
+                if (Int(money) ?? 0) > 50000 {
+                    SwiftToastHud.showToastText(form: compleView, message: "Please enter an amount within 50,000 pesos.")
+                    return
+                }
+            }
+            if startTime.isEmpty {
+                SwiftToastHud.showToastText(form: compleView, message: "Please enter the plan start time.")
+                return
+            }
+            if endTime.isEmpty {
+                SwiftToastHud.showToastText(form: compleView, message: "Please enter the plan end time.")
+                return
+            }
+            if startTime > endTime {
+                SwiftToastHud.showToastText(form: compleView, message: "Invalid time range: Start time must precede end time.")
+                return
+            }
+            self.dismiss(animated: true) {
+                let json: [String: String] = ["name": name,
+                                              "money": money,
+                                              "startTime": startTime,
+                                              "endTime": endTime,
+                                              "desc": desc,
+                                              "timestamp": String(Date().timeIntervalSince1970 * 1000)]
+                let tricpname = self.dataView.tnameLabel.text ?? ""
+                var allArray = HomeListSaveMessage.loadAllJourInfo()
+                for (index ,dict) in allArray.enumerated() {
+                    let name = dict["name"] ?? ""
+                    if tricpname == name {
+                        allArray.remove(at: index)
+                        UserDefaults.standard.set(allArray, forKey: "JourInfoArray")
+                        UserDefaults.standard.synchronize()
+                    }
+                }
+                self.saveJourInfo(with: json)
+            }
+        }).disposed(by: disposeBag)
+        
+        compleView.leftBlock = { label in
+            DatePickerHelper.showYMDDatePicker { selectedDate in
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd/MM/yyyy"
+                let time = formatter.string(from: selectedDate)
+                print("selecttime: \(time)")
+                label.text = time
+                label.textColor = .black
+            }
+        }
+        
+        compleView.rightBlock = { label in
+            DatePickerHelper.showYMDDatePicker { selectedDate in
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd/MM/yyyy"
+                let time = formatter.string(from: selectedDate)
+                print("selecttime: \(time)")
+                label.text = time
+                label.textColor = .black
+            }
+        }
+        
+    }
+    
 }

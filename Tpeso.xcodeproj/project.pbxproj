@@ -20,6 +20,8 @@
 		738793EE2DDB39210000FA60 /* ApplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738793ED2DDB39210000FA60 /* ApplyView.swift */; };
 		7394F1042DDC1F68009AD274 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7394F1032DDC1F68009AD274 /* SettingViewController.swift */; };
 		7394F1062DDC2949009AD274 /* ExitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7394F1052DDC2946009AD274 /* ExitView.swift */; };
+		7394F1082DDC2E50009AD274 /* DatePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7394F1072DDC2E50009AD274 /* DatePickerHelper.swift */; };
+		7394F10A2DDC381A009AD274 /* HageDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7394F1092DDC381A009AD274 /* HageDataView.swift */; };
 		B6E6CA939563A0B4087FA28E /* Pods_Tpeso.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376872DC97D8FC2F58C37D7C /* Pods_Tpeso.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		738793ED2DDB39210000FA60 /* ApplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyView.swift; sourceTree = "<group>"; };
 		7394F1032DDC1F68009AD274 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		7394F1052DDC2946009AD274 /* ExitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitView.swift; sourceTree = "<group>"; };
+		7394F1072DDC2E50009AD274 /* DatePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerHelper.swift; sourceTree = "<group>"; };
+		7394F1092DDC381A009AD274 /* HageDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HageDataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				738793E32DDB1A150000FA60 /* BaseView.swift */,
+				7394F1072DDC2E50009AD274 /* DatePickerHelper.swift */,
 				738793DF2DDB164F0000FA60 /* BaseViewController.swift */,
 				738793E12DDB16600000FA60 /* GuideViewController.swift */,
 				738793E52DDB22870000FA60 /* BaseNavigationController.swift */,
@@ -120,6 +125,7 @@
 			children = (
 				7394F1052DDC2946009AD274 /* ExitView.swift */,
 				738793EB2DDB32010000FA60 /* HomeView.swift */,
+				7394F1092DDC381A009AD274 /* HageDataView.swift */,
 				738793ED2DDB39210000FA60 /* ApplyView.swift */,
 				738793E72DDB22F90000FA60 /* HomeViewController.swift */,
 				7394F1032DDC1F68009AD274 /* SettingViewController.swift */,
@@ -259,6 +265,8 @@
 				738793DA2DDB13F30000FA60 /* AppDelegate.swift in Sources */,
 				738793E02DDB164F0000FA60 /* BaseViewController.swift in Sources */,
 				738793E22DDB16600000FA60 /* GuideViewController.swift in Sources */,
+				7394F10A2DDC381A009AD274 /* HageDataView.swift in Sources */,
+				7394F1082DDC2E50009AD274 /* DatePickerHelper.swift in Sources */,
 				738793E62DDB22870000FA60 /* BaseNavigationController.swift in Sources */,
 				7394F1042DDC1F68009AD274 /* SettingViewController.swift in Sources */,
 				738793E42DDB1A150000FA60 /* BaseView.swift in Sources */,
@@ -302,6 +310,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -341,6 +350,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
