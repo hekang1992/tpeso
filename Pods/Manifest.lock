@@ -1,5 +1,31 @@
 PODS:
   - Alamofire (5.10.2)
+  - BRPickerView (2.9.5):
+    - BRPickerView/All (= 2.9.5)
+  - BRPickerView/All (2.9.5):
+    - BRPickerView/Default
+    - BRPickerView/Deprecated
+  - BRPickerView/Core (2.9.5)
+  - BRPickerView/DatePicker (2.9.5):
+    - BRPickerView/Core
+  - BRPickerView/Default (2.9.5):
+    - BRPickerView/DatePicker
+    - BRPickerView/TextPicker
+  - BRPickerView/Deprecated (2.9.5):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/AddressPickerView (= 2.9.5)
+    - BRPickerView/Deprecated/Base (= 2.9.5)
+    - BRPickerView/Deprecated/StringPickerView (= 2.9.5)
+  - BRPickerView/Deprecated/AddressPickerView (2.9.5):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/Deprecated/Base (2.9.5):
+    - BRPickerView/Core
+  - BRPickerView/Deprecated/StringPickerView (2.9.5):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/TextPicker (2.9.5):
+    - BRPickerView/Core
   - IQKeyboardCore (1.0.5)
   - IQKeyboardManagerSwift (8.0.1):
     - IQKeyboardManagerSwift/Appearance (= 8.0.1)
@@ -55,6 +81,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - BRPickerView
   - IQKeyboardManagerSwift
   - RxCocoa
   - RxGesture
@@ -66,6 +93,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - BRPickerView
     - IQKeyboardCore
     - IQKeyboardManagerSwift
     - IQKeyboardNotification
@@ -84,6 +112,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
+  BRPickerView: 6eb731d84385cc99c3ab4fec49af3336ed26c803
   IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
   IQKeyboardManagerSwift: 835fc9c6e4732398113406d84900ad2e8f141218
   IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
@@ -100,6 +129,6 @@ SPEC CHECKSUMS:
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
   UIColor_Hex_Swift: 20cb4e8d51b63e168a9da6933bc5d39cd8fb4ab5
 
-PODFILE CHECKSUM: a7a2681a59f667849b0ff8fc696df205248285f4
+PODFILE CHECKSUM: ec9d07f1aba2418e17440525146329bd4dc9f035
 
 COCOAPODS: 1.16.2

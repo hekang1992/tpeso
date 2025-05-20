@@ -70,7 +70,8 @@ class GuideViewController: UIViewController, UIScrollViewDelegate {
     @objc private func startApp() {
         UserDefaults.standard.set("1", forKey: "GUIDECLICK")
         UserDefaults.standard.synchronize()
-        UIApplication.shared.windows.first?.rootViewController = IS_LOGIN ? HomeViewController() : LoginViewController()
+        
+        UIApplication.shared.windows.first?.rootViewController = IS_LOGIN ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: LoginViewController())
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

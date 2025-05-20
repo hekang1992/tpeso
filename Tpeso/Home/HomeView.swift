@@ -56,6 +56,12 @@ class HomeView: BaseView {
         return applyBtn
     }()
     
+    lazy var settingBtn: UIButton = {
+        let settingBtn = UIButton(type: .custom)
+        settingBtn.setImage(UIImage(named: "graeimge"), for: .normal)
+        return settingBtn
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor("#C4E961")
@@ -103,11 +109,13 @@ class HomeView: BaseView {
             make.top.equalTo(birdImageView.snp.bottom).offset(19)
             make.size.equalTo(CGSize(width: 302, height: 49))
         }
-        
-        applyBtn.rx.tap.subscribe(onNext: { [weak self] in
-            guard let self = self else { return }
-        }).disposed(by: disposeBag)
-        
+    
+        addSubview(settingBtn)
+        settingBtn.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
+            make.right.equalToSuperview().offset(-20)
+            make.size.equalTo(CGSize(width: 22, height: 22))
+        }
     }
     
     required init?(coder: NSCoder) {

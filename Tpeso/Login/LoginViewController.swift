@@ -215,7 +215,7 @@ class LoginViewController: BaseViewController {
         
         sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            UIApplication.shared.windows.first?.rootViewController = HomeViewController()
+            UIApplication.shared.windows.first?.rootViewController = BaseNavigationController(rootViewController: HomeViewController())
         }).disposed(by: disposeBag)
         
     }

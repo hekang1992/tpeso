@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     private func getRootVc() {
-        self.window?.rootViewController = IS_LOGIN ? HomeViewController() : LoginViewController()
+        self.window?.rootViewController = IS_LOGIN ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: LoginViewController())
     }
     
 }

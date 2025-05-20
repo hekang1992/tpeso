@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TYAlertController
 
 class HomeViewController: BaseViewController {
     
@@ -21,6 +22,28 @@ class HomeViewController: BaseViewController {
         homeView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        homeView.applyBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            let compleView = ApplyView(frame: CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+            let alertVc = TYAlertController(alert: compleView, preferredStyle: .actionSheet)!
+            self.present(alertVc, animated: true)
+            
+            compleView.completBtn.rx.tap.subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true) {
+                    
+                }
+            }).disposed(by: disposeBag)
+            
+        }).disposed(by: disposeBag)
+        
+        homeView.settingBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            let stVc = SettingViewController()
+            self.navigationController?.pushViewController(stVc, animated: true)
+        }).disposed(by: disposeBag)
+        
     }
     
 

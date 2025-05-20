@@ -14,4 +14,5 @@ target 'Tpeso' do
   pod 'IQKeyboardManagerSwift'
   pod 'TYAlertController'
   pod 'RxGesture'
+  pod 'BRPickerView'
 end
