@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TYAlertController
 
 class SettingViewController: BaseViewController {
 
@@ -122,6 +123,36 @@ class SettingViewController: BaseViewController {
             make.right.equalToSuperview()
             make.height.equalTo(50)
         }
+        
+        whiteView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            let exitView = ExitView(frame: CGRectMake(0, 0, SCREEN_WIDTH, 300))
+            exitView.imge.image = UIImage(named: "exitaccimge")
+            let alertVc = TYAlertController(alert: exitView, preferredStyle: .alert)!
+            alertVc.backgoundTapDismissEnable = true
+            self.present(alertVc, animated: true)
+            exitView.block = { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            exitView.block1 = { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        }).disposed(by: disposeBag)
+        
+        white1View.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            let exitView = ExitView(frame: CGRectMake(0, 0, SCREEN_WIDTH, 300))
+            exitView.imge.image = UIImage(named: "cancelimgeacount")
+            let alertVc = TYAlertController(alert: exitView, preferredStyle: .alert)!
+            alertVc.backgoundTapDismissEnable = true
+            self.present(alertVc, animated: true)
+            exitView.block = { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            exitView.block1 = { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        }).disposed(by: disposeBag)
         
     }
 
