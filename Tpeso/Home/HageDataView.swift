@@ -115,6 +115,49 @@ class HageDataView: BaseView {
         return moneydescLabel
     }()
     
+    lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.layer.cornerRadius = 5
+        progressView.layer.masksToBounds = true
+        progressView.progressTintColor = UIColor("#80A51C")
+        progressView.trackTintColor = UIColor("#C4E961")
+        return progressView
+    }()
+    
+    lazy var minLabel: UILabel = {
+        let minLabel = UILabel()
+        minLabel.text = "10,000₱"
+        minLabel.textColor = UIColor("#666666")
+        minLabel.textAlignment = .left
+        minLabel.font = .boldFontOfSize(size: 10)
+        return minLabel
+    }()
+    
+    lazy var maxLabel: UILabel = {
+        let maxLabel = UILabel()
+        maxLabel.text = "50,000₱"
+        maxLabel.textColor = UIColor("#666666")
+        maxLabel.textAlignment = .right
+        maxLabel.font = .boldFontOfSize(size: 10)
+        return maxLabel
+    }()
+    
+    lazy var greenView: UIView = {
+        let greenView = UIView()
+        greenView.backgroundColor = UIColor("#C4E961")
+        return greenView
+    }()
+    
+    lazy var sureBtn: UIButton = {
+        let sureBtn = UIButton(type: .custom)
+        sureBtn.setTitle("End of the journey", for: .normal)
+        sureBtn.backgroundColor = UIColor("#FFB12A")
+        sureBtn.layer.cornerRadius = 25
+        sureBtn.layer.masksToBounds = true
+        sureBtn.titleLabel?.font = .boldFontOfSize(size: 16)
+        return sureBtn
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor("#C4E961")
@@ -126,6 +169,9 @@ class HageDataView: BaseView {
         bgView.addSubview(changeBtn)
         bgView.addSubview(treeImageView)
         bgView.addSubview(moreBtn)
+        bgView.addSubview(progressView)
+        bgView.addSubview(minLabel)
+        bgView.addSubview(maxLabel)
         nameLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
@@ -216,6 +262,39 @@ class HageDataView: BaseView {
             make.top.equalTo(moneyLabel.snp.bottom)
         }
         
+        bgView.addSubview(progressView)
+        progressView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(40)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(8)
+            make.top.equalTo(treeImageView.snp.bottom).offset(20)
+        }
+        
+        minLabel.snp.makeConstraints { make in
+            make.left.equalTo(progressView.snp.left)
+            make.top.equalTo(progressView.snp.bottom).offset(1)
+            make.height.equalTo(12)
+        }
+        maxLabel.snp.makeConstraints { make in
+            make.right.equalTo(progressView.snp.right)
+            make.top.equalTo(progressView.snp.bottom).offset(1)
+            make.height.equalTo(12)
+        }
+        
+        bgView.addSubview(greenView)
+        greenView.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(progressView.snp.bottom).offset(50)
+        }
+        
+        bgView.addSubview(sureBtn)
+        sureBtn.snp.makeConstraints { make in
+            make.top.equalTo(greenView.snp.top).offset(-27)
+            make.height.equalTo(54)
+            make.centerX.equalToSuperview()
+            make.left.equalTo(40)
+        }
+        
         moreBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             self.block?(moreBtn)
@@ -235,6 +314,10 @@ extension HageDataView {
         bgView.layer.cornerRadius = 30
         bgView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         bgView.clipsToBounds = true
+        
+        greenView.layer.cornerRadius = 30
+        greenView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        greenView.clipsToBounds = true
     }
 }
 

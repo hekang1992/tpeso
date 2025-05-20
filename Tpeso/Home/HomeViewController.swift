@@ -109,6 +109,10 @@ class HomeViewController: BaseViewController {
             
             self.dataView.timedescLabel.text = "\(startTime)-\(endTime)"
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self.updateProgress(currentValue: Int(money) ?? 0)
+            }
+            
             self.dataView.block = { [weak self] moreBtn in
                 guard let self = self else { return }
                 let bgView = UIView()
@@ -238,7 +242,11 @@ class HomeViewController: BaseViewController {
                 return
             }else {
                 if (Int(money) ?? 0) > 50000 {
-                    SwiftToastHud.showToastText(form: compleView, message: "Please enter an amount within 50,000 pesos.")
+                    SwiftToastHud.showToastText(form: compleView, message: "Please enter an max amount within 50,000 pesos.")
+                    return
+                }
+                if (Int(money) ?? 0) < 10000 {
+                    SwiftToastHud.showToastText(form: compleView, message: "Please enter an min amount within 10,000 pesos.")
                     return
                 }
             }
@@ -296,6 +304,15 @@ class HomeViewController: BaseViewController {
                 label.textColor = .black
             }
         }
+        
+    }
+    
+    func updateProgress(currentValue: Int) {
+        let minValue = 10000
+        let maxValue = 50000
+        let clampedValue = min(max(currentValue, minValue), maxValue)
+        let progress = Float(clampedValue - minValue) / Float(maxValue - minValue)
+        self.dataView.progressView.setProgress(progress, animated: true)
         
     }
     
