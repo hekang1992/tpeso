@@ -10,6 +10,7 @@ import UIKit
 class HageDataView: BaseView {
     
     var block: ((UIButton) -> Void)?
+    var editblock: ((UIButton) -> Void)?
     
     lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
@@ -158,6 +159,12 @@ class HageDataView: BaseView {
         return sureBtn
     }()
     
+    lazy var editBtn: UIButton = {
+        let editBtn = UIButton(type: .custom)
+        editBtn.setImage(UIImage(named: "eidmigepancel"), for: .normal)
+        return editBtn
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor("#C4E961")
@@ -172,6 +179,7 @@ class HageDataView: BaseView {
         bgView.addSubview(progressView)
         bgView.addSubview(minLabel)
         bgView.addSubview(maxLabel)
+        greenView.addSubview(editBtn)
         nameLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
@@ -295,10 +303,22 @@ class HageDataView: BaseView {
             make.left.equalTo(40)
         }
         
+        editBtn.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 80, height: 80))
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.right.equalToSuperview().offset(-20)
+        }
+        
         moreBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             self.block?(moreBtn)
         }).disposed(by: disposeBag)
+        
+        editBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.editblock?(editBtn)
+        }).disposed(by: disposeBag)
+        
     }
     
     @MainActor required init?(coder: NSCoder) {

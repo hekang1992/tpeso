@@ -25,6 +25,11 @@ class HomeViewController: BaseViewController {
         return dataView
     }()
     
+    lazy var tricpimgeView: TCameraView = {
+        let tricpimgeView = TCameraView()
+        return tricpimgeView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,6 +54,64 @@ class HomeViewController: BaseViewController {
             let stVc = SettingViewController()
             self.navigationController?.pushViewController(stVc, animated: true)
         }).disposed(by: disposeBag)
+        
+        /// 记录一笔
+        dataView.editblock = { [weak self] btn in
+            let tricpView = TricpView(frame: CGRectMake(0, 0, SCREEN_WIDTH, 690))
+            let alertVc = TYAlertController(alert: tricpView, preferredStyle: .actionSheet)!
+            alertVc.backgoundTapDismissEnable = true
+            self?.present(alertVc, animated: true)
+            
+            tricpView.block = { btn in
+                DatePickerHelper.showYMDDatePicker { selectedDate in
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "dd/MM/yyyy"
+                    let time = formatter.string(from: selectedDate)
+                    print("selecttime: \(time)")
+                    btn.setTitle(time, for: .normal)
+                    btn.setTitleColor(.black, for: .normal)
+                }
+            }
+            
+            tricpView.camerablock = { [weak self] btn in
+                guard let self = self else { return }
+                let bgView = UIView()
+                bgView.backgroundColor = UIColor.black.withAlphaComponent(0.45)
+                if let window = UIApplication.shared.currentKeyWindow {
+                    window.addSubview(bgView)
+                    bgView.snp.makeConstraints { make in
+                        make.edges.equalToSuperview()
+                    }
+                    let finalFrame = CGRect(x: 0, y: SCREEN_HEIGHT - 300, width: SCREEN_WIDTH, height: 300)
+                    
+                    self.tricpimgeView.frame = CGRect(x: 0, y: SCREEN_HEIGHT, width: SCREEN_WIDTH, height: 300)
+                    
+                    // 2. 先添加到窗口（此时在屏幕外）
+                    window.addSubview(self.tricpimgeView)
+                    
+                    // 3. 执行从下往上的动画
+                    UIView.animate(withDuration: 0.25,
+                                   delay: 0,
+                                   options: [.curveEaseOut],
+                                   animations: {
+                        self.tricpimgeView.frame = finalFrame
+                    }, completion: nil)
+                    
+                    bgView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+                        guard let self = self else { return }
+                        UIView.animate(withDuration: 0.25, animations: {
+                            bgView.alpha = 0
+                            self.tricpimgeView.frame = CGRect(x: 0, y: SCREEN_HEIGHT, width: SCREEN_WIDTH, height: 300)
+                        }, completion: { _ in
+                            bgView.removeFromSuperview()
+                            self.tricpimgeView.removeFromSuperview()
+                        })
+                    }).disposed(by: disposeBag)
+                    
+                }
+            }
+            
+        }
         
     }
     
@@ -258,10 +321,15 @@ class HomeViewController: BaseViewController {
                 SwiftToastHud.showToastText(form: compleView, message: "Please enter the plan end time.")
                 return
             }
-            if startTime > endTime {
-                SwiftToastHud.showToastText(form: compleView, message: "Invalid time range: Start time must precede end time.")
-                return
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            if let date1 = dateFormatter.date(from: startTime), let date2 = dateFormatter.date(from: endTime) {
+                if date1 > date2 {
+                    SwiftToastHud.showToastText(form: compleView, message: "Invalid time range: Start time must precede end time.")
+                    return
+                }
             }
+            
             self.dismiss(animated: true) {
                 let json: [String: String] = ["name": name,
                                               "money": money,
