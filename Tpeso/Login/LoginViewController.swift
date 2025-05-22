@@ -7,6 +7,7 @@
 
 import UIKit
 import RxGesture
+import KRProgressHUD
 
 class LoginViewController: BaseViewController {
     
@@ -211,6 +212,10 @@ class LoginViewController: BaseViewController {
             guard let self = self else { return }
             sendBtn.isEnabled = false
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
+            //获取验证码
+            getcode()
+            
+            
         }).disposed(by: disposeBag)
         
         sureBtn.rx.tap.subscribe(onNext: { [weak self] in
@@ -234,4 +239,35 @@ class LoginViewController: BaseViewController {
     deinit {
         timer?.invalidate()
     }
+}
+
+extension LoginViewController {
+    
+    private func getcode() {
+        KRProgressHUD.show()
+        let man = NetworkRequest()
+        let dict = ["informationture": self.phoneTx.text ?? ""]
+        let result = man.requsetData(url: "/tplink/cad", parameters: dict, contentType: .multipartFormData).sink { _ in
+            KRProgressHUD.dismiss()
+        } receiveValue: { [weak self] data in
+            KRProgressHUD.dismiss()
+            guard let self = self else { return }
+            do {
+                let model = try JSONDecoder().decode(BaseModel.self, from: data)
+                let invalidValues: Set<String> = ["0", "00"]
+                if invalidValues.contains(model.laminacy) {
+                    
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    ToastConfig.showMessage(form: self.view, message: model.worldan ?? "")
+                }
+            } catch  {
+                print("JSON: \(error)")
+            }
+        }
+        result.store(in: &cancellables)
+        
+    }
+    
+    
 }

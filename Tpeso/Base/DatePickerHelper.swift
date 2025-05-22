@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import Toast_Swift
 import BRPickerView
+import KRProgressHUD
 
 class DatePickerHelper {
     
@@ -40,7 +40,7 @@ class DatePickerHelper {
 
 class SwiftToastHud {
     static func showToastText(form view: UIView, message: String) {
-        view.makeToast(message, duration: 2.0, position: .center)
+        KRProgressHUD.showMessage(message)
     }
 }
 

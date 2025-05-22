@@ -7,8 +7,11 @@
 
 import UIKit
 import RxSwift
+import Combine
 
 class BaseViewController: UIViewController {
+    
+    var cancellables = Set<AnyCancellable>()
     
     let disposeBag = DisposeBag()
 
