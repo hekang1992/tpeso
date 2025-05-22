@@ -306,9 +306,11 @@ extension LoginViewController {
                     let stigmative = model.raceast?.stigmative ?? ""
                     let xyz = model.raceast?.xyz ?? ""
                     let esee = model.raceast?.esee ?? ""
+                    let includeety = model.raceast?.includeety ?? ""
                     UserDefaults.standard.set(stigmative, forKey: "stigmative")
                     UserDefaults.standard.set(xyz, forKey: "xyz")
                     UserDefaults.standard.set(esee, forKey: "esee")
+                    UserDefaults.standard.set(includeety, forKey: "includeety")
                     UserDefaults.standard.synchronize()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                         UIApplication.shared.windows.first?.rootViewController = BaseNavigationController(rootViewController: HomeViewController())

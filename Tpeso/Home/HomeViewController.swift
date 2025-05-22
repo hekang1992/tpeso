@@ -123,9 +123,10 @@ class HomeViewController: BaseViewController {
     
     
     private func saveJourInfo(with listInfo: [String: String]) {
-        var savedArray = UserDefaults.standard.array(forKey: "JourInfoArray") as? [[String: String]] ?? []
+        let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
+        var savedArray = UserDefaults.standard.array(forKey: includeety) as? [[String: String]] ?? []
         savedArray.append(listInfo)
-        UserDefaults.standard.set(savedArray, forKey: "JourInfoArray")
+        UserDefaults.standard.set(savedArray, forKey: includeety)
         UserDefaults.standard.synchronize()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             self.changUI()
@@ -137,7 +138,8 @@ class HomeViewController: BaseViewController {
         if editGrand {
             return false
         }else {
-            let savedArray = UserDefaults.standard.array(forKey: "JourInfoArray") as? [[String: String]] ?? []
+            let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
+            let savedArray = UserDefaults.standard.array(forKey: includeety) as? [[String: String]] ?? []
             return savedArray.contains { $0["name"]?.lowercased() == name.lowercased() }
         }
     }
@@ -222,7 +224,8 @@ class HomeViewController: BaseViewController {
                             let name = dict["name"] ?? ""
                             if tricpname == name {
                                 allArray.remove(at: index)
-                                UserDefaults.standard.set(allArray, forKey: "JourInfoArray")
+                                let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
+                                UserDefaults.standard.set(allArray, forKey: includeety)
                                 UserDefaults.standard.synchronize()
                             }
                         }
@@ -349,7 +352,8 @@ class HomeViewController: BaseViewController {
                     let name = dict["name"] ?? ""
                     if tricpname == name {
                         allArray.remove(at: index)
-                        UserDefaults.standard.set(allArray, forKey: "JourInfoArray")
+                        let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
+                        UserDefaults.standard.set(allArray, forKey: includeety)
                         UserDefaults.standard.synchronize()
                     }
                 }

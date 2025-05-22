@@ -47,11 +47,13 @@ class SwiftToastHud {
 class HomeListSaveMessage {
     
     static func loadAllJourInfo() -> [[String: String]] {
-        return UserDefaults.standard.array(forKey: "JourInfoArray") as? [[String: String]] ?? []
+        let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
+        return UserDefaults.standard.array(forKey: includeety) as? [[String: String]] ?? []
     }
     
     static func clearAllJourInfo() {
-        UserDefaults.standard.removeObject(forKey: "JourInfoArray")
+        let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
+        UserDefaults.standard.removeObject(forKey: includeety)
         UserDefaults.standard.synchronize()
     }
     

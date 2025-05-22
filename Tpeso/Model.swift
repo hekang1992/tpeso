@@ -15,4 +15,5 @@ class raceastModel: Codable {
     var esee: String?
     var stigmative: String?
     var xyz: String?
+    var includeety: String?
 }
