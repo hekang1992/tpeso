@@ -8,6 +8,8 @@
 import UIKit
 import AdSupport
 import SAMKeychain
+import SystemConfiguration.CaptiveNetwork
+import Alamofire
 
 class DeviceInfo: NSObject {
     
@@ -39,6 +41,39 @@ class DeviceInfo: NSObject {
     }
     
 }
+
+extension DeviceInfo {
+    
+     static var isUsingProxy: String {
+        guard let proxySettings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? [AnyHashable: Any] else {
+            return "0"
+        }
+        let testURL = URL(string: "https://www.apple.com")!
+        guard let proxies = CFNetworkCopyProxiesForURL(testURL as CFURL, proxySettings as CFDictionary).takeRetainedValue() as? [[AnyHashable: Any]] else {
+            return "0"
+        }
+        guard let proxyType = proxies.first?[kCFProxyTypeKey] as? String else {
+            return "0"
+        }
+        return proxyType == kCFProxyTypeNone as String ? "0" : "1"
+    }
+    
+     static var isVPNEnabled: String {
+        guard let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? [String: Any],
+              let scoped = settings["__SCOPED__"] as? [String: Any] else {
+            return "0"
+        }
+        
+        for key in scoped.keys {
+            if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
+                return "1"
+            }
+        }
+        return "0"
+    }
+    
+}
+
 
 class happyfrogManager {
     

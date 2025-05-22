@@ -210,17 +210,13 @@ class LoginViewController: BaseViewController {
         
         sendBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            sendBtn.isEnabled = false
-            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
             //获取验证码
             getcode()
-            
-            
         }).disposed(by: disposeBag)
         
         sureBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            UIApplication.shared.windows.first?.rootViewController = BaseNavigationController(rootViewController: HomeViewController())
+            getloginpage()
         }).disposed(by: disposeBag)
         
     }
@@ -244,9 +240,14 @@ class LoginViewController: BaseViewController {
 extension LoginViewController {
     
     private func getcode() {
+        let phone = self.phoneTx.text ?? ""
+        if phone.isEmpty {
+            ToastConfig.showMessage(form: view, message: "Please enter your phone number")
+            return
+        }
         KRProgressHUD.show()
         let man = NetworkRequest()
-        let dict = ["informationture": self.phoneTx.text ?? ""]
+        let dict = ["informationture": phone]
         let result = man.requsetData(url: "/tplink/cad", parameters: dict, contentType: .multipartFormData).sink { _ in
             KRProgressHUD.dismiss()
         } receiveValue: { [weak self] data in
@@ -256,7 +257,8 @@ extension LoginViewController {
                 let model = try JSONDecoder().decode(BaseModel.self, from: data)
                 let invalidValues: Set<String> = ["0", "00"]
                 if invalidValues.contains(model.laminacy) {
-                    
+                    sendBtn.isEnabled = false
+                    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                     ToastConfig.showMessage(form: self.view, message: model.worldan ?? "")
@@ -269,5 +271,59 @@ extension LoginViewController {
         
     }
     
+    private func getloginpage() {
+        let phone = self.phoneTx.text ?? ""
+        if phone.isEmpty {
+            ToastConfig.showMessage(form: view, message: "Please enter your phone number")
+            return
+        }
+        KRProgressHUD.show()
+        let includeety = phone
+        let summer = self.codeTx.text ?? ""
+        let vsee = DeviceInfo.isVPNEnabled//vpn
+        let psee = DeviceInfo.isUsingProxy//dl
+        let lsee = Locale.preferredLanguages.first ?? "en"//en
+        let ranacy = "1"//hx
+        
+        let dict = ["includeety": includeety,
+                    "summer": summer,
+                    "vsee": vsee,
+                    "psee": psee,
+                    "lsee": lsee,
+                    "ranacy": ranacy]
+        
+        let man = NetworkRequest()
+        
+        let result = man.requsetData(url: "/tplink/ug", parameters: dict, contentType: .multipartFormData).sink { _ in
+            KRProgressHUD.dismiss()
+        } receiveValue: { [weak self] data in
+            KRProgressHUD.dismiss()
+            guard let self = self else { return }
+            do {
+                let model = try JSONDecoder().decode(BaseModel.self, from: data)
+                let invalidValues: Set<String> = ["0", "00"]
+                if invalidValues.contains(model.laminacy) {
+                    let stigmative = model.raceast?.stigmative ?? ""
+                    let xyz = model.raceast?.xyz ?? ""
+                    let esee = model.raceast?.esee ?? ""
+                    UserDefaults.standard.set(stigmative, forKey: "stigmative")
+                    UserDefaults.standard.set(xyz, forKey: "xyz")
+                    UserDefaults.standard.set(esee, forKey: "esee")
+                    UserDefaults.standard.synchronize()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                        UIApplication.shared.windows.first?.rootViewController = BaseNavigationController(rootViewController: HomeViewController())
+                    }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    ToastConfig.showMessage(form: self.view, message: model.worldan ?? "")
+                }
+            } catch  {
+                print("JSON: \(error)")
+            }
+        }
+
+        result.store(in: &cancellables)
+        
+    }
     
 }
