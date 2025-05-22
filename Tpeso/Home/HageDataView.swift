@@ -11,6 +11,7 @@ class HageDataView: BaseView {
     
     var block: ((UIButton) -> Void)?
     var editblock: ((UIButton) -> Void)?
+    var settingBtnblock: (() -> Void)?
     
     lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
@@ -317,6 +318,11 @@ class HageDataView: BaseView {
         editBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             self.editblock?(editBtn)
+        }).disposed(by: disposeBag)
+        
+        settingBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.settingBtnblock?()
         }).disposed(by: disposeBag)
         
     }

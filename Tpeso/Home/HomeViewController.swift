@@ -113,6 +113,12 @@ class HomeViewController: BaseViewController {
             
         }
         
+        dataView.settingBtnblock = { [weak self] in
+            guard let self = self else { return }
+            let stVc = SettingViewController()
+            self.navigationController?.pushViewController(stVc, animated: true)
+        }
+        
     }
     
     

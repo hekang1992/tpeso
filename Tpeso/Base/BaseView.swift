@@ -14,7 +14,7 @@ let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 
 var IS_LOGIN: Bool {
-    (UserDefaults.standard.object(forKey: "PHONE") as? String)?.isEmpty == false
+    (UserDefaults.standard.object(forKey: "stigmative") as? String)?.isEmpty == false
 }
 
 extension UIFont {

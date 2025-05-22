@@ -7,6 +7,7 @@
 
 import UIKit
 import TYAlertController
+import KRProgressHUD
 
 class SettingViewController: BaseViewController {
 
@@ -135,7 +136,10 @@ class SettingViewController: BaseViewController {
                 self?.dismiss(animated: true)
             }
             exitView.block1 = { [weak self] in
-                self?.dismiss(animated: true)
+                guard let self = self else { return }
+                self.dismiss(animated: true) {
+                    self.exitinfo()
+                }
             }
         }).disposed(by: disposeBag)
         
@@ -150,10 +154,76 @@ class SettingViewController: BaseViewController {
                 self?.dismiss(animated: true)
             }
             exitView.block1 = { [weak self] in
-                self?.dismiss(animated: true)
+                guard let self = self else { return }
+                self.dismiss(animated: true) {
+                    self.deleingeadre()
+                }
             }
         }).disposed(by: disposeBag)
         
     }
 
+}
+
+extension SettingViewController {
+    
+    private func exitinfo() {
+        KRProgressHUD.show()
+        let man = NetworkRequest()
+        let result = man.getRequest(url: "/tplink/baibai").sink { _ in
+            KRProgressHUD.dismiss()
+        } receiveValue: { [weak self] data in
+            KRProgressHUD.dismiss()
+            guard let self = self else { return }
+            do {
+                let model = try JSONDecoder().decode(BaseModel.self, from: data)
+                let invalidValues: Set<String> = ["0", "00"]
+                if invalidValues.contains(model.laminacy) {
+                    UserDefaults.standard.set("", forKey: "stigmative")
+                    UserDefaults.standard.set("", forKey: "xyz")
+                    UserDefaults.standard.set("", forKey: "esee")
+                    UserDefaults.standard.synchronize()
+                    
+                    UIApplication.shared.windows.first?.rootViewController = IS_LOGIN ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: LoginViewController())
+                    
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    ToastConfig.showMessage(form: self.view, message: model.worldan ?? "")
+                }
+            } catch  {
+                print("JSON: \(error)")
+            }
+        }
+        result.store(in: &cancellables)
+    }
+    
+    private func deleingeadre() {
+        KRProgressHUD.show()
+        let man = NetworkRequest()
+        let result = man.getRequest(url: "/tplink/sten").sink { _ in
+            KRProgressHUD.dismiss()
+        } receiveValue: { [weak self] data in
+            KRProgressHUD.dismiss()
+            guard let self = self else { return }
+            do {
+                let model = try JSONDecoder().decode(BaseModel.self, from: data)
+                let invalidValues: Set<String> = ["0", "00"]
+                if invalidValues.contains(model.laminacy) {
+                    UserDefaults.standard.set("", forKey: "stigmative")
+                    UserDefaults.standard.set("", forKey: "xyz")
+                    UserDefaults.standard.set("", forKey: "esee")
+                    UserDefaults.standard.synchronize()
+                    
+                    UIApplication.shared.windows.first?.rootViewController = IS_LOGIN ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: LoginViewController())
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    ToastConfig.showMessage(form: self.view, message: model.worldan ?? "")
+                }
+            } catch  {
+                print("JSON: \(error)")
+            }
+        }
+        result.store(in: &cancellables)
+    }
+    
 }
