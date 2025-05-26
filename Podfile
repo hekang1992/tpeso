@@ -19,5 +19,4 @@ target 'Tpeso' do
   pod 'FBSDKCoreKit'
   pod 'KRProgressHUD'
   pod 'DeviceKit'
-  pod 'Kingfisher'
 end
