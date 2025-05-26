@@ -73,6 +73,7 @@ PODS:
     - IQKeyboardCore
   - IQTextView (1.0.5):
     - IQKeyboardToolbar/Placeholderable
+  - Kingfisher (8.3.2)
   - KRActivityIndicatorView (3.0.8)
   - KRProgressHUD (3.4.8):
     - KRActivityIndicatorView (= 3.0.8)
@@ -96,6 +97,7 @@ DEPENDENCIES:
   - DeviceKit
   - FBSDKCoreKit
   - IQKeyboardManagerSwift
+  - Kingfisher
   - KRProgressHUD
   - RxCocoa
   - RxGesture
@@ -121,6 +123,7 @@ SPEC REPOS:
     - IQKeyboardToolbarManager
     - IQTextInputViewNotification
     - IQTextView
+    - Kingfisher
     - KRActivityIndicatorView
     - KRProgressHUD
     - RxCocoa
@@ -147,6 +150,7 @@ SPEC CHECKSUMS:
   IQKeyboardToolbarManager: 6c693c8478d6327a7ef2107528d29698b3514dbb
   IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
   IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
+  Kingfisher: 0621d0ac0c78fecb19f6dc5303bde2b52abaf2f5
   KRActivityIndicatorView: c5c503bf56e54834382dd926b64ff47287ca0006
   KRProgressHUD: d0fb4e72428d312eb6966e84c543ea58fb1efbc7
   RxCocoa: ac16414696ae706516be3e1ab00fcce5bdc9be8a
@@ -158,6 +162,6 @@ SPEC CHECKSUMS:
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
   UIColor_Hex_Swift: 20cb4e8d51b63e168a9da6933bc5d39cd8fb4ab5
 
-PODFILE CHECKSUM: e82419c64c39f2b84e05c7397a0d11b5013e68e7
+PODFILE CHECKSUM: 3438b0418d47f0d6d092c8b09459923ddb46940f
 
 COCOAPODS: 1.16.2

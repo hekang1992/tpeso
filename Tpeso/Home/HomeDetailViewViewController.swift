@@ -78,6 +78,7 @@ class HomeDetailViewViewController: BaseViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.register(NoViewCell.self, forCellReuseIdentifier: "NoViewCell")
+        tableView.register(YesViewCell.self, forCellReuseIdentifier: "YesViewCell")
         tableView.estimatedRowHeight = 80
         tableView.showsVerticalScrollIndicator = false
         tableView.contentInsetAdjustmentBehavior = .never
@@ -223,24 +224,43 @@ extension HomeDetailViewViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NoViewCell", for: indexPath) as! NoViewCell
         if let itemsInSection = sortedGroupedArray?[indexPath.section].values.first {
             let item = itemsInSection[indexPath.row]
             let name = item["type"] as? String ?? ""
             let hour = item["hour"] as? String ?? ""
             let money = item["money"] as? String ?? ""
-            cell.imgerView.image = UIImage(named: name )
-            cell.nameLabel.text = name
-            cell.selectionStyle = .none
-            cell.backgroundColor = .clear
-            if !hour.isEmpty {
-                cell.timeLabel.text = formatTimestampToTime(hour, isMilliseconds: true)
+            let images = item["imagebase"] as? [String] ?? []
+            if images.count > 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "YesViewCell", for: indexPath) as! YesViewCell
+                cell.imgerView.image = UIImage(named: name )
+                cell.nameLabel.text = name
+                cell.selectionStyle = .none
+                cell.backgroundColor = .clear
+                if !hour.isEmpty {
+                    cell.timeLabel.text = formatTimestampToTime(hour, isMilliseconds: true)
+                }else {
+                    cell.timeLabel.text = ""
+                }
+                cell.moneyLabel.text = "₱\(money)"
+                cell.modelArray = images
+                return cell
             }else {
-                cell.timeLabel.text = ""
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NoViewCell", for: indexPath) as! NoViewCell
+                
+                cell.imgerView.image = UIImage(named: name )
+                cell.nameLabel.text = name
+                cell.selectionStyle = .none
+                cell.backgroundColor = .clear
+                if !hour.isEmpty {
+                    cell.timeLabel.text = formatTimestampToTime(hour, isMilliseconds: true)
+                }else {
+                    cell.timeLabel.text = ""
+                }
+                cell.moneyLabel.text = "₱\(money)"
+                return cell
             }
-            cell.moneyLabel.text = "₱\(money)"
         }
-        return cell
+        return UITableViewCell()
     }
     
     /// 将时间戳（秒/毫秒）转换为 "HH:mm" 格式的时间字符串

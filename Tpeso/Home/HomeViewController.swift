@@ -99,10 +99,6 @@ class HomeViewController: BaseViewController {
                     SwiftToastHud.showToastText(form: tricpView, message: "Please enter an max amount within 50,000 pesos.")
                     return
                 }
-                if (Int(money) ?? 0) < 10000 {
-                    SwiftToastHud.showToastText(form: tricpView, message: "Please enter an min amount within 10,000 pesos.")
-                    return
-                }
                 if time.contains("time") {
                     SwiftToastHud.showToastText(form: tricpView, message: "Please choose your time")
                     return
@@ -506,19 +502,29 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
-            picker.dismiss(animated: true) {
-                self.tricpView.imagebase.append(self.imageToBase64String(image) ?? "")
-                let count = self.tricpView.imagebase.count
-                if count > 9 {
-                    self.tricpView.imagebase.removeLast()
-                    ToastConfig.showMessage(form: self.tricpView, message: "Maximum of 9 images can be uploaded.")
-                    return
+            
+            let compressionQuality: CGFloat = 0.25
+            
+            if let imageData = image.jpegData(compressionQuality: compressionQuality) {
+                print("压缩后的图片大小: \(imageData.count / 1024) KB")
+                picker.dismiss(animated: true) {
+                    self.tricpView.imagebase.append(self.imageToBase64String(image) ?? "")
+                    let count = self.tricpView.imagebase.count
+                    if count > 9 {
+                        self.tricpView.imagebase.removeLast()
+                        ToastConfig.showMessage(form: self.tricpView, message: "Maximum of 9 images can be uploaded.")
+                        return
+                    }
+                    self.tricpView.cameraBtn.setTitleColor(UIColor.black, for: .normal)
+                    self.tricpView.cameraBtn.setTitle(String(count), for: .normal)
+                    self.tricpView.cameraBtn.setBackgroundImage(image, for: .normal)
+                    
                 }
-                self.tricpView.cameraBtn.setTitleColor(UIColor.black, for: .normal)
-                self.tricpView.cameraBtn.setTitle(String(count), for: .normal)
-                self.tricpView.cameraBtn.setBackgroundImage(image, for: .normal)
                 
             }
+            
+            
+            
         }
         
     }
