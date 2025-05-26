@@ -121,6 +121,7 @@ class HomeViewController: BaseViewController {
             
             tricpView.camerablock = { [weak self] btn in
                 guard let self = self else { return }
+                tricpView.moneyTx.resignFirstResponder()
                 let bgView = UIView()
                 bgView.backgroundColor = UIColor.black.withAlphaComponent(0.45)
                 if let window = UIApplication.shared.currentKeyWindow {
@@ -320,11 +321,14 @@ class HomeViewController: BaseViewController {
                             if tricpname == name {
                                 allArray.remove(at: index)
                                 let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
-                                UserDefaults.standard.set(allArray, forKey: includeety)
-                                UserDefaults.standard.synchronize()
+                                let key = "image_\(includeety)"
+                                UserDefaults.standard.set([], forKey: key)
+                                HomeListSaveMessage.clearAllJourInfo()
                             }
                         }
-                        changUI()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self.changUI()
+                        }
                     }).disposed(by: disposeBag)
                     
                     twoBtn.rx.tap.subscribe(onNext: { [weak self] in
@@ -332,7 +336,6 @@ class HomeViewController: BaseViewController {
                         bgView.removeFromSuperview()
                         self.editGrand = true
                         popCompleteView()
-                        
                     }).disposed(by: disposeBag)
                     
                     bgView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
