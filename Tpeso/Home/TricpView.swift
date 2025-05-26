@@ -19,7 +19,7 @@ class TricpView: BaseView {
     
     var type: String = ""
     
-    var imagebase: String = ""
+    var imagebase: [String] = []
     
     lazy var bgView: UIView = {
         let bgView = UIView()
@@ -56,7 +56,7 @@ class TricpView: BaseView {
     
     lazy var cameraBtn: UIButton = {
         let cameraBtn = UIButton(type: .custom)
-        cameraBtn.setImage(UIImage(named: "cameagigme"), for: .normal)
+        cameraBtn.setBackgroundImage(UIImage(named: "cameagigme"), for: .normal)
         cameraBtn.layer.cornerRadius = 22
         cameraBtn.layer.masksToBounds = true
         return cameraBtn

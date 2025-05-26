@@ -27,6 +27,8 @@
 		73B962CE2DE414A7000C823C /* MediaPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962CD2DE414A6000C823C /* MediaPickerManager.swift */; };
 		73B962D02DE434EC000C823C /* HomeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962CF2DE434EC000C823C /* HomeListView.swift */; };
 		73B962D22DE43BC9000C823C /* HomeDetailViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962D12DE43BC9000C823C /* HomeDetailViewViewController.swift */; };
+		73B962D42DE44D68000C823C /* NoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962D32DE44D68000C823C /* NoViewCell.swift */; };
+		73B962D62DE44D79000C823C /* YesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962D52DE44D79000C823C /* YesViewCell.swift */; };
 		73BD13262DDEB9C900F69B81 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD13252DDEB9C400F69B81 /* Model.swift */; };
 		73BD13282DDEBA1100F69B81 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD13272DDEBA0800F69B81 /* DeviceInfo.swift */; };
 		73BD132A2DDEBC2D00F69B81 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD13292DDEBC2D00F69B81 /* NetworkManager.swift */; };
@@ -64,6 +66,8 @@
 		73B962CD2DE414A6000C823C /* MediaPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerManager.swift; sourceTree = "<group>"; };
 		73B962CF2DE434EC000C823C /* HomeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListView.swift; sourceTree = "<group>"; };
 		73B962D12DE43BC9000C823C /* HomeDetailViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewViewController.swift; sourceTree = "<group>"; };
+		73B962D32DE44D68000C823C /* NoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoViewCell.swift; sourceTree = "<group>"; };
+		73B962D52DE44D79000C823C /* YesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YesViewCell.swift; sourceTree = "<group>"; };
 		73BD13252DDEB9C400F69B81 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		73BD13272DDEBA0800F69B81 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		73BD13292DDEBC2D00F69B81 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				73E7C4472DDD74D000390E2B /* TCameraView.swift */,
 				73B962CF2DE434EC000C823C /* HomeListView.swift */,
 				73B962D12DE43BC9000C823C /* HomeDetailViewViewController.swift */,
+				73B962D32DE44D68000C823C /* NoViewCell.swift */,
+				73B962D52DE44D79000C823C /* YesViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -306,8 +312,10 @@
 				73E7C4462DDD710600390E2B /* TricpCollectionViewCell.swift in Sources */,
 				738793E02DDB164F0000FA60 /* BaseViewController.swift in Sources */,
 				73E7C4482DDD74D000390E2B /* TCameraView.swift in Sources */,
+				73B962D62DE44D79000C823C /* YesViewCell.swift in Sources */,
 				73B962CA2DE3FECD000C823C /* LoginInfo.swift in Sources */,
 				738793E22DDB16600000FA60 /* GuideViewController.swift in Sources */,
+				73B962D42DE44D68000C823C /* NoViewCell.swift in Sources */,
 				7394F10A2DDC381A009AD274 /* HageDataView.swift in Sources */,
 				73BD13282DDEBA1100F69B81 /* DeviceInfo.swift in Sources */,
 				7394F1082DDC2E50009AD274 /* DatePickerHelper.swift in Sources */,

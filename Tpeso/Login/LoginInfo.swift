@@ -154,7 +154,7 @@ extension LoginInfo {
         return address
     }
     
-    private static var currentTimestamp: String {
+     static var currentTimestamp: String {
         let currentTime = Date().timeIntervalSince1970
         return String(Int64(currentTime * 1000))
     }

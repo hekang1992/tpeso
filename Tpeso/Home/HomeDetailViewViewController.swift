@@ -11,7 +11,7 @@ import KRProgressHUD
 
 class HomeDetailViewViewController: BaseViewController {
     
-    var sortedGroupedArray: [[String : [[String : String]]]]?
+    var sortedGroupedArray: [[String : [[String : Any]]]]?
     
     var timeStr: String?  {
         didSet {
@@ -30,13 +30,21 @@ class HomeDetailViewViewController: BaseViewController {
         timelabel.font = .regularFontOfSize(size: 14)
         return timelabel
     }()
-
-    var jsonArray: [[String: String]]? {
+    
+    var jsonArray: [[String: Any]]? {
         didSet {
+            
             guard let jsonArray = jsonArray else { return }
+            
+            // 1. 将 time 统一转为 String
             let grouped = Dictionary(grouping: jsonArray) { element -> String in
-                return element["time"] ?? "unknown" // 处理可能的 nil 值
+                if let time = element["time"] as? String {
+                    return time
+                } else {
+                    return "unknown"
+                }
             }
+            
             // 2. 按 "type" 排序 (a, b, c...)
             let sortedGroups = grouped.sorted { $0.key < $1.key }
             
@@ -69,7 +77,7 @@ class HomeDetailViewViewController: BaseViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(NoViewCell.self, forCellReuseIdentifier: "NoViewCell")
         tableView.estimatedRowHeight = 80
         tableView.showsVerticalScrollIndicator = false
         tableView.contentInsetAdjustmentBehavior = .never
@@ -215,12 +223,57 @@ extension HomeDetailViewViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoViewCell", for: indexPath) as! NoViewCell
         if let itemsInSection = sortedGroupedArray?[indexPath.section].values.first {
-                let item = itemsInSection[indexPath.row]
-                cell.textLabel?.text = item["type"] // 或其他字段
+            let item = itemsInSection[indexPath.row]
+            let name = item["type"] as? String ?? ""
+            let hour = item["hour"] as? String ?? ""
+            let money = item["money"] as? String ?? ""
+            cell.imgerView.image = UIImage(named: name )
+            cell.nameLabel.text = name
+            cell.selectionStyle = .none
+            cell.backgroundColor = .clear
+            if !hour.isEmpty {
+                cell.timeLabel.text = formatTimestampToTime(hour, isMilliseconds: true)
+            }else {
+                cell.timeLabel.text = ""
             }
+            cell.moneyLabel.text = "₱\(money)"
+        }
         return cell
+    }
+    
+    /// 将时间戳（秒/毫秒）转换为 "HH:mm" 格式的时间字符串
+    /// - Parameters:
+    ///   - timestamp: 时间戳（TimeInterval 或 String 格式的数字）
+    ///   - isMilliseconds: 是否为毫秒时间戳（默认 false，表示秒）
+    /// - Returns: "16:30" 格式的时间字符串
+    func formatTimestampToTime(_ timestamp: Any, isMilliseconds: Bool = false) -> String {
+        // 1. 统一转换为 TimeInterval（秒）
+        let seconds: TimeInterval
+        switch timestamp {
+        case let str as String:
+            seconds = TimeInterval(str) ?? 0
+        case let num as TimeInterval:
+            seconds = num
+        case let num as Int:
+            seconds = TimeInterval(num)
+        default:
+            return "00:00" // 无效时间戳
+        }
+        
+        // 2. 处理毫秒/秒
+        let actualSeconds = isMilliseconds ? seconds / 1000 : seconds
+        
+        // 3. 转换为 Date
+        let date = Date(timeIntervalSince1970: actualSeconds)
+        
+        // 4. 格式化为 "HH:mm"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm" // 24小时制
+        formatter.timeZone = TimeZone.current // 当前时区
+        
+        return formatter.string(from: date)
     }
     
 }

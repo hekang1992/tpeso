@@ -112,10 +112,12 @@ class HomeViewController: BaseViewController {
                     return
                 }
                 
-                
+                //时间戳
+                let hour = LoginInfo.currentTimestamp
                 let json = ["time": time,
                             "money": money,
                             "type": type,
+                            "hour": hour,
                             "imagebase": imagebase]
                 
                 savetricpInfo(with: json)
@@ -505,8 +507,17 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
             picker.dismiss(animated: true) {
-                self.tricpView.imagebase = self.imageToBase64String(image) ?? ""
-                self.tricpView.cameraBtn.setImage(image, for: .normal)
+                self.tricpView.imagebase.append(self.imageToBase64String(image) ?? "")
+                let count = self.tricpView.imagebase.count
+                if count > 9 {
+                    self.tricpView.imagebase.removeLast()
+                    ToastConfig.showMessage(form: self.tricpView, message: "Maximum of 9 images can be uploaded.")
+                    return
+                }
+                self.tricpView.cameraBtn.setTitleColor(UIColor.black, for: .normal)
+                self.tricpView.cameraBtn.setTitle(String(count), for: .normal)
+                self.tricpView.cameraBtn.setBackgroundImage(image, for: .normal)
+                
             }
         }
         
@@ -522,10 +533,10 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     
     ///保存编辑
-    private func savetricpInfo(with listInfo: [String: String]) {
+    private func savetricpInfo(with listInfo: [String: Any]) {
         let phone = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
         let key = "image_\(phone)"
-        var savedArray = UserDefaults.standard.array(forKey: key) as? [[String: String]] ?? []
+        var savedArray = UserDefaults.standard.array(forKey: key) as? [[String: Any]] ?? []
         savedArray.append(listInfo)
         UserDefaults.standard.set(savedArray, forKey: key)
         UserDefaults.standard.synchronize()
@@ -572,7 +583,7 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
         let phone = UserDefaults.standard.string(forKey: "includeety") ?? ""
         let key = "image_\(phone)"
         
-        if let jsonArray = UserDefaults.standard.array(forKey: key) as? [[String: String]] {
+        if let jsonArray = UserDefaults.standard.array(forKey: key) as? [[String: Any]] {
             jsonArray.forEach { dict in
                 let homeListView = HomeListView()
                 
@@ -585,8 +596,8 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
                     self.navigationController?.pushViewController(detailvc, animated: true)
                 }
                 
-                let money = dict["money"] ?? ""
-                let imageName = dict["type"] ?? ""
+                let money = dict["money"] as? String ?? ""
+                let imageName = dict["type"] as? String ?? ""
                 
                 // 3.1 配置自定义视图
                 homeListView.imgerView.image = UIImage(named: imageName)

@@ -38,3 +38,8 @@ extension UIFont {
 class BaseView: UIView {
    let disposeBag = DisposeBag()
 }
+
+class BaseViewCell: UITableViewCell {
+   let disposeBag = DisposeBag()
+}
+
