@@ -2,7 +2,7 @@
 //  SettingViewController.swift
 //  Tpeso
 //
-//  Created by 何康 on 2025/5/20.
+//  Created by tom on 2025/5/20.
 //
 
 import UIKit
@@ -201,7 +201,7 @@ extension SettingViewController {
     private func deleingeadre() {
         KRProgressHUD.show()
         let man = NetworkRequest()
-        let result = man.getRequest(url: "/tplink/sten").sink { _ in
+        let result = man.getRequest(url: "/tplink/setn").sink { _ in
             KRProgressHUD.dismiss()
         } receiveValue: { [weak self] data in
             KRProgressHUD.dismiss()

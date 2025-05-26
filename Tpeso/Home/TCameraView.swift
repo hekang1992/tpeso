@@ -2,7 +2,7 @@
 //  TCameraView.swift
 //  Tpeso
 //
-//  Created by 何康 on 2025/5/21.
+//  Created by tom on 2025/5/21.
 //
 
 import UIKit

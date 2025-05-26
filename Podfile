@@ -18,4 +18,5 @@ target 'Tpeso' do
   pod 'SAMKeychain'
   pod 'FBSDKCoreKit'
   pod 'KRProgressHUD'
+  pod 'DeviceKit'
 end

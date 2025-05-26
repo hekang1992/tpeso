@@ -2,7 +2,7 @@
 //  Model.swift
 //  Tpeso
 //
-//  Created by 何康 on 2025/5/22.
+//  Created by tom on 2025/5/22.
 //
 
 class BaseModel: Codable {
@@ -16,4 +16,12 @@ class raceastModel: Codable {
     var stigmative: String?
     var xyz: String?
     var includeety: String?
+    var rubrative: rubrativeModel?
+}
+
+class rubrativeModel: Codable {
+    var corticoence: String?
+    var gardenitude: String?
+    var quiship: String?
+    var whoseive: String?
 }

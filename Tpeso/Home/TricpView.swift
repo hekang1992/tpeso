@@ -2,7 +2,7 @@
 //  TricpView.swift
 //  Tpeso
 //
-//  Created by 何康 on 2025/5/21.
+//  Created by tom on 2025/5/21.
 //
 
 import UIKit
@@ -15,6 +15,11 @@ class TricpView: BaseView {
     
     var block: ((UIButton) -> Void)?
     var camerablock: ((UIButton) -> Void)?
+    var completeblock: (() -> Void)?
+    
+    var type: String = ""
+    
+    var imagebase: String = ""
     
     lazy var bgView: UIView = {
         let bgView = UIView()
@@ -52,6 +57,8 @@ class TricpView: BaseView {
     lazy var cameraBtn: UIButton = {
         let cameraBtn = UIButton(type: .custom)
         cameraBtn.setImage(UIImage(named: "cameagigme"), for: .normal)
+        cameraBtn.layer.cornerRadius = 22
+        cameraBtn.layer.masksToBounds = true
         return cameraBtn
     }()
     
@@ -183,6 +190,11 @@ class TricpView: BaseView {
             guard let self = self else { return }
             self.block?(timeBtn)
         }).disposed(by: disposeBag)
+        
+        applyBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.completeblock?()
+        }).disposed(by: disposeBag)
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -227,6 +239,8 @@ extension TricpView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
+        let imgename = imageArray[indexPath.row]
+        type = imgename
         collectionView.reloadData()
     }
     

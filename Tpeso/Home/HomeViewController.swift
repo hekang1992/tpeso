@@ -2,7 +2,7 @@
 //  HomeViewController.swift
 //  Tpeso
 //
-//  Created by 何康 on 2025/5/19.
+//  Created by tom on 2025/5/19.
 //
 
 import UIKit
@@ -29,6 +29,17 @@ class HomeViewController: BaseViewController {
         let tricpimgeView = TCameraView()
         return tricpimgeView
     }()
+    
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical       // 垂直排列
+        stackView.spacing = 5           // 间距 5 像素
+        stackView.distribution = .fill  // 填充方式（可调整）
+        stackView.alignment = .fill
+        return stackView
+    }()
+    
+    var tricpView: TricpView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +72,9 @@ class HomeViewController: BaseViewController {
             let alertVc = TYAlertController(alert: tricpView, preferredStyle: .actionSheet)!
             alertVc.backgoundTapDismissEnable = true
             self?.present(alertVc, animated: true)
-            
+            self?.tricpView = tricpView
             tricpView.block = { btn in
+                tricpView.moneyTx.resignFirstResponder()
                 DatePickerHelper.showYMDDatePicker { selectedDate in
                     let formatter = DateFormatter()
                     formatter.dateFormat = "dd/MM/yyyy"
@@ -71,6 +83,42 @@ class HomeViewController: BaseViewController {
                     btn.setTitle(time, for: .normal)
                     btn.setTitleColor(.black, for: .normal)
                 }
+            }
+            
+            tricpView.completeblock = { [weak self] in
+                guard let self = self else { return }
+                let money = tricpView.moneyTx.text ?? "0"
+                var time = tricpView.timeBtn.titleLabel?.text ?? ""
+                let type = tricpView.type
+                let imagebase = tricpView.imagebase
+                if money.isEmpty {
+                    SwiftToastHud.showToastText(form: tricpView, message: "Please enter your budget")
+                    return
+                }
+                if (Int(money) ?? 0) > 50000 {
+                    SwiftToastHud.showToastText(form: tricpView, message: "Please enter an max amount within 50,000 pesos.")
+                    return
+                }
+                if (Int(money) ?? 0) < 10000 {
+                    SwiftToastHud.showToastText(form: tricpView, message: "Please enter an min amount within 10,000 pesos.")
+                    return
+                }
+                if time.contains("time") {
+                    SwiftToastHud.showToastText(form: tricpView, message: "Please choose your time")
+                    return
+                }
+                if type.isEmpty {
+                    SwiftToastHud.showToastText(form: tricpView, message: "Please choose your consumpiton type")
+                    return
+                }
+                
+                
+                let json = ["time": time,
+                            "money": money,
+                            "type": type,
+                            "imagebase": imagebase]
+                
+                savetricpInfo(with: json)
             }
             
             tricpView.camerablock = { [weak self] btn in
@@ -107,6 +155,54 @@ class HomeViewController: BaseViewController {
                             self.tricpimgeView.removeFromSuperview()
                         })
                     }).disposed(by: disposeBag)
+                    
+                    
+                    tricpimgeView.block1 = { [weak self] in
+                        guard let self = self else { return }
+                        UIView.animate(withDuration: 0.25, animations: {
+                            bgView.alpha = 0
+                            self.tricpimgeView.frame = CGRect(x: 0, y: SCREEN_HEIGHT, width: SCREEN_WIDTH, height: 300)
+                        }, completion: { _ in
+                            bgView.removeFromSuperview()
+                            self.tricpimgeView.removeFromSuperview()
+                        })
+                        
+                        MediaPickerHelper.shared.requestPhotoLibraryAccess(presentingVC: alertVc) {
+                            let picker = UIImagePickerController()
+                            picker.sourceType = .photoLibrary
+                            picker.delegate = self
+                            alertVc.present(picker, animated: true)
+                        }
+                        
+                    }
+                    tricpimgeView.block2 = { [weak self] in
+                        guard let self = self else { return }
+                        UIView.animate(withDuration: 0.25, animations: {
+                            bgView.alpha = 0
+                            self.tricpimgeView.frame = CGRect(x: 0, y: SCREEN_HEIGHT, width: SCREEN_WIDTH, height: 300)
+                        }, completion: { _ in
+                            bgView.removeFromSuperview()
+                            self.tricpimgeView.removeFromSuperview()
+                        })
+                        
+                        MediaPickerHelper.shared.requestCameraAccess(presentingVC: alertVc) {
+                            let picker = UIImagePickerController()
+                            picker.sourceType = .camera
+                            picker.delegate = self
+                            alertVc.present(picker, animated: true)
+                        }
+                        
+                    }
+                    tricpimgeView.block3 = { [weak self] in
+                        guard let self = self else { return }
+                        UIView.animate(withDuration: 0.25, animations: {
+                            bgView.alpha = 0
+                            self.tricpimgeView.frame = CGRect(x: 0, y: SCREEN_HEIGHT, width: SCREEN_WIDTH, height: 300)
+                        }, completion: { _ in
+                            bgView.removeFromSuperview()
+                            self.tricpimgeView.removeFromSuperview()
+                        })
+                    }
                     
                 }
             }
@@ -152,6 +248,7 @@ class HomeViewController: BaseViewController {
     private func changUI() {
         let allArray = HomeListSaveMessage.loadAllJourInfo()
         if !allArray.isEmpty && allArray.count > 0 {
+            self.showEidtView()
             self.homeView.isHidden = true
             self.dataView.isHidden = false
             
@@ -286,6 +383,7 @@ class HomeViewController: BaseViewController {
             compleView.writeView.text = dict["desc"] ?? ""
         }
         
+        ///savetips
         compleView.completBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             let name = compleView.phoneTx.text ?? ""
@@ -392,6 +490,116 @@ class HomeViewController: BaseViewController {
         let progress = Float(clampedValue - minValue) / Float(maxValue - minValue)
         self.dataView.progressView.setProgress(progress, animated: true)
         
+    }
+    
+}
+
+extension HomeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            picker.dismiss(animated: true) {
+                self.tricpView.imagebase = self.imageToBase64String(image) ?? ""
+                self.tricpView.cameraBtn.setImage(image, for: .normal)
+            }
+        }
+        
+    }
+    
+    func imageToBase64String(_ image: UIImage) -> String? {
+        // 1. 将图片转换为 Data（PNG 或 JPEG 格式）
+        guard let imageData = image.pngData() else { return nil } // 或用 `jpegData(compressionQuality:)`
+        
+        // 2. 将 Data 转换为 Base64 字符串
+        let base64String = imageData.base64EncodedString(options: .lineLength64Characters)
+        return base64String
+    }
+    
+    ///保存编辑
+    private func savetricpInfo(with listInfo: [String: String]) {
+        let phone = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
+        let key = "image_\(phone)"
+        var savedArray = UserDefaults.standard.array(forKey: key) as? [[String: String]] ?? []
+        savedArray.append(listInfo)
+        UserDefaults.standard.set(savedArray, forKey: key)
+        UserDefaults.standard.synchronize()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            self.dismiss(animated: true) {
+                self.changUI()
+                SwiftToastHud.showToastText(form: self.view, message: "Save success")
+            }
+        }
+    }
+    
+    private func showEidtView() {
+        // 0. 先移除旧的 scrollView 和 stackView（避免重复添加）
+        dataView.greenView.subviews.forEach {
+            if $0 is UIScrollView {
+                $0.removeFromSuperview()
+            }
+        }
+        
+        // 1. 初始化 ScrollView
+        let scrollView = UIScrollView()
+        dataView.greenView.insertSubview(scrollView, belowSubview: dataView.editBtn)
+        scrollView.snp.makeConstraints { make in
+            make.left.bottom.equalToSuperview()
+            make.width.equalTo(SCREEN_WIDTH)
+            make.top.equalToSuperview().offset(35)
+        }
+        
+        // 2. 初始化 StackView（垂直排列，间距 5）
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        
+        scrollView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.width.equalTo(SCREEN_WIDTH)
+            make.bottom.equalToSuperview().offset(-5) // 底部间距 5
+        }
+        
+        // 3. 加载数据
+        let phone = UserDefaults.standard.string(forKey: "includeety") ?? ""
+        let key = "image_\(phone)"
+        
+        if let jsonArray = UserDefaults.standard.array(forKey: key) as? [[String: String]] {
+            jsonArray.forEach { dict in
+                let homeListView = HomeListView()
+                
+                homeListView.block = { [weak self] in
+                    guard let self = self else { return }
+                    let detailvc = HomeDetailViewViewController()
+                    detailvc.jsonArray = jsonArray
+                    let allArray = HomeListSaveMessage.loadAllJourInfo()
+                    detailvc.name = allArray[0]["name"] ?? ""
+                    self.navigationController?.pushViewController(detailvc, animated: true)
+                }
+                
+                let money = dict["money"] ?? ""
+                let imageName = dict["type"] ?? ""
+                
+                // 3.1 配置自定义视图
+                homeListView.imgerView.image = UIImage(named: imageName)
+                homeListView.nameLabel.text = "\(imageName) - ₱\(money)"
+                
+                // 3.2 固定高度（或通过约束自适应）
+                homeListView.snp.makeConstraints { make in
+                    make.height.equalTo(72) // 示例高度，按需调整
+                }
+                
+                stackView.addArrangedSubview(homeListView)
+            }
+        }
     }
     
 }

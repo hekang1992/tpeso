@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Tpeso
 //
-//  Created by 何康 on 2025/5/19.
+//  Created by tom on 2025/5/19.
 //
 
 import UIKit
@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }else {
             window?.rootViewController = GuideViewController()
         }
+        NetworkManager.shared.startListening()
         window?.makeKeyAndVisible()
         return true
     }

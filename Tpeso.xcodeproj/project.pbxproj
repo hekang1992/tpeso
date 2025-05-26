@@ -22,6 +22,11 @@
 		7394F1062DDC2949009AD274 /* ExitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7394F1052DDC2946009AD274 /* ExitView.swift */; };
 		7394F1082DDC2E50009AD274 /* DatePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7394F1072DDC2E50009AD274 /* DatePickerHelper.swift */; };
 		7394F10A2DDC381A009AD274 /* HageDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7394F1092DDC381A009AD274 /* HageDataView.swift */; };
+		73B962CA2DE3FECD000C823C /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962C92DE3FEA6000C823C /* LoginInfo.swift */; };
+		73B962CC2DE41152000C823C /* LocationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962CB2DE41149000C823C /* LocationConfig.swift */; };
+		73B962CE2DE414A7000C823C /* MediaPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962CD2DE414A6000C823C /* MediaPickerManager.swift */; };
+		73B962D02DE434EC000C823C /* HomeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962CF2DE434EC000C823C /* HomeListView.swift */; };
+		73B962D22DE43BC9000C823C /* HomeDetailViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B962D12DE43BC9000C823C /* HomeDetailViewViewController.swift */; };
 		73BD13262DDEB9C900F69B81 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD13252DDEB9C400F69B81 /* Model.swift */; };
 		73BD13282DDEBA1100F69B81 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD13272DDEBA0800F69B81 /* DeviceInfo.swift */; };
 		73BD132A2DDEBC2D00F69B81 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD13292DDEBC2D00F69B81 /* NetworkManager.swift */; };
@@ -53,6 +58,12 @@
 		7394F1052DDC2946009AD274 /* ExitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitView.swift; sourceTree = "<group>"; };
 		7394F1072DDC2E50009AD274 /* DatePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerHelper.swift; sourceTree = "<group>"; };
 		7394F1092DDC381A009AD274 /* HageDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HageDataView.swift; sourceTree = "<group>"; };
+		73B962C82DE3FE8D000C823C /* Tpeso.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tpeso.entitlements; sourceTree = "<group>"; };
+		73B962C92DE3FEA6000C823C /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
+		73B962CB2DE41149000C823C /* LocationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationConfig.swift; sourceTree = "<group>"; };
+		73B962CD2DE414A6000C823C /* MediaPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerManager.swift; sourceTree = "<group>"; };
+		73B962CF2DE434EC000C823C /* HomeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListView.swift; sourceTree = "<group>"; };
+		73B962D12DE43BC9000C823C /* HomeDetailViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewViewController.swift; sourceTree = "<group>"; };
 		73BD13252DDEB9C400F69B81 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		73BD13272DDEBA0800F69B81 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		73BD13292DDEBC2D00F69B81 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -103,13 +114,16 @@
 		738793D62DDB13F30000FA60 /* Tpeso */ = {
 			isa = PBXGroup;
 			children = (
+				73B962C82DE3FE8D000C823C /* Tpeso.entitlements */,
 				738793D32DDB13F30000FA60 /* Info.plist */,
 				738793D22DDB13F30000FA60 /* Assets.xcassets */,
 				73BD13252DDEB9C400F69B81 /* Model.swift */,
 				738793D12DDB13F30000FA60 /* AppDelegate.swift */,
 				738793D52DDB13F30000FA60 /* LaunchScreen.storyboard */,
+				73B962CB2DE41149000C823C /* LocationConfig.swift */,
 				73BD13292DDEBC2D00F69B81 /* NetworkManager.swift */,
 				73BD132D2DDEBFD100F69B81 /* NetworkRequest.swift */,
+				73B962CD2DE414A6000C823C /* MediaPickerManager.swift */,
 				738793DB2DDB14D70000FA60 /* Login */,
 				738793DD2DDB14E80000FA60 /* Home */,
 				738793DC2DDB14E50000FA60 /* Base */,
@@ -120,6 +134,7 @@
 		738793DB2DDB14D70000FA60 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				73B962C92DE3FEA6000C823C /* LoginInfo.swift */,
 				73BD13272DDEBA0800F69B81 /* DeviceInfo.swift */,
 				738793E92DDB23030000FA60 /* LoginViewController.swift */,
 			);
@@ -150,6 +165,8 @@
 				73E7C4432DDD654000390E2B /* TricpView.swift */,
 				73E7C4452DDD710600390E2B /* TricpCollectionViewCell.swift */,
 				73E7C4472DDD74D000390E2B /* TCameraView.swift */,
+				73B962CF2DE434EC000C823C /* HomeListView.swift */,
+				73B962D12DE43BC9000C823C /* HomeDetailViewViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -262,9 +279,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -278,17 +299,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73B962CC2DE41152000C823C /* LocationConfig.swift in Sources */,
 				73BD132A2DDEBC2D00F69B81 /* NetworkManager.swift in Sources */,
 				738793EA2DDB23030000FA60 /* LoginViewController.swift in Sources */,
 				738793DA2DDB13F30000FA60 /* AppDelegate.swift in Sources */,
 				73E7C4462DDD710600390E2B /* TricpCollectionViewCell.swift in Sources */,
 				738793E02DDB164F0000FA60 /* BaseViewController.swift in Sources */,
 				73E7C4482DDD74D000390E2B /* TCameraView.swift in Sources */,
+				73B962CA2DE3FECD000C823C /* LoginInfo.swift in Sources */,
 				738793E22DDB16600000FA60 /* GuideViewController.swift in Sources */,
 				7394F10A2DDC381A009AD274 /* HageDataView.swift in Sources */,
 				73BD13282DDEBA1100F69B81 /* DeviceInfo.swift in Sources */,
 				7394F1082DDC2E50009AD274 /* DatePickerHelper.swift in Sources */,
 				738793E62DDB22870000FA60 /* BaseNavigationController.swift in Sources */,
+				73B962CE2DE414A7000C823C /* MediaPickerManager.swift in Sources */,
+				73B962D22DE43BC9000C823C /* HomeDetailViewViewController.swift in Sources */,
 				7394F1042DDC1F68009AD274 /* SettingViewController.swift in Sources */,
 				73BD13262DDEB9C900F69B81 /* Model.swift in Sources */,
 				738793E42DDB1A150000FA60 /* BaseView.swift in Sources */,
@@ -296,6 +321,7 @@
 				73E7C4442DDD654000390E2B /* TricpView.swift in Sources */,
 				738793EC2DDB32060000FA60 /* HomeView.swift in Sources */,
 				738793EE2DDB39210000FA60 /* ApplyView.swift in Sources */,
+				73B962D02DE434EC000C823C /* HomeListView.swift in Sources */,
 				738793E82DDB22F90000FA60 /* HomeViewController.swift in Sources */,
 				7394F1062DDC2949009AD274 /* ExitView.swift in Sources */,
 			);
@@ -321,6 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Tpeso/Tpeso.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -361,6 +388,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Tpeso/Tpeso.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

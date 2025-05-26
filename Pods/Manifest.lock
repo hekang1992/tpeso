@@ -26,6 +26,7 @@ PODS:
     - BRPickerView/Deprecated/Base
   - BRPickerView/TextPicker (2.9.5):
     - BRPickerView/Core
+  - DeviceKit (5.6.0)
   - FBAEMKit (18.0.0):
     - FBSDKCoreKit_Basics (= 18.0.0)
   - FBSDKCoreKit (18.0.0):
@@ -92,6 +93,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - BRPickerView
+  - DeviceKit
   - FBSDKCoreKit
   - IQKeyboardManagerSwift
   - KRProgressHUD
@@ -107,6 +109,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - BRPickerView
+    - DeviceKit
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
@@ -132,6 +135,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   BRPickerView: 6eb731d84385cc99c3ab4fec49af3336ed26c803
+  DeviceKit: 9f2e0b68984a384f864b0f4e40a54bae43636bd8
   FBAEMKit: e34530df538b8eb8aeb53c35867715ba6c63ef0c
   FBSDKCoreKit: d3f479a69127acebb1c6aad91c1a33907bcf6c2f
   FBSDKCoreKit_Basics: 017b6dc2a1862024815a8229e75661e627ac1e29
@@ -154,6 +158,6 @@ SPEC CHECKSUMS:
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
   UIColor_Hex_Swift: 20cb4e8d51b63e168a9da6933bc5d39cd8fb4ab5
 
-PODFILE CHECKSUM: 916248e21e770689fa01a6cde7478deb0a5e1add
+PODFILE CHECKSUM: e82419c64c39f2b84e05c7397a0d11b5013e68e7
 
 COCOAPODS: 1.16.2

@@ -9,8 +9,11 @@
 import Alamofire
 import FBSDKCoreKit
 import AppTrackingTransparency
+import Combine
 
 class NetworkManager {
+    
+    var cancellables = Set<AnyCancellable>()
     
     static let shared = NetworkManager()
     
@@ -60,15 +63,29 @@ class NetworkManager {
     }
     
     private func getIDFAInfo() {
-        
+        let man = NetworkRequest()
+        let dirty_floor = happyfrogManager.getIDFV()//idfv
+        let neat_desk = happyfrogManager.getIDFA()//idfa
+        let dict = ["dirty_floor": dirty_floor, "neat_desk": neat_desk]
+        let result =  man.postRequest(url: "/tplink/pere", parameters: dict, contentType: .json).sink { _ in
+            
+        } receiveValue: { [weak self] data in
+            guard let self = self else { return }
+            do {
+                let model = try JSONDecoder().decode(BaseModel.self, from: data)
+                let invalidValues: Set<String> = ["0", "00"]
+                if invalidValues.contains(model.laminacy) {
+                    Settings.shared.appID = model.raceast?.rubrative?.whoseive ?? ""
+                    Settings.shared.clientToken = model.raceast?.rubrative?.quiship ?? ""
+                    Settings.shared.displayName = model.raceast?.rubrative?.corticoence ?? ""
+                    Settings.shared.appURLSchemeSuffix = model.raceast?.rubrative?.gardenitude ?? ""
+                    ApplicationDelegate.shared.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
+                }
+            } catch  {
+                print("JSON: \(error)")
+            }
+        }
+        result.store(in: &cancellables)
     }
     
-//    private func thridToUfc(from model: thirdModel) {
-//        Settings.shared.appID = model.coincidentally ?? ""
-//        Settings.shared.clientToken = model.hands ?? ""
-//        Settings.shared.displayName = model.passing ?? ""
-//        Settings.shared.appURLSchemeSuffix = model.met ?? ""
-//        ApplicationDelegate.shared.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
-//    }
-
 }

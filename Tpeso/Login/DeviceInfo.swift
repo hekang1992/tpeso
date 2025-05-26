@@ -2,7 +2,7 @@
 //  DeviceInfo.swift
 //  Tpeso
 //
-//  Created by 何康 on 2025/5/22.
+//  Created by tom on 2025/5/22.
 //
 
 import UIKit
@@ -66,6 +66,17 @@ extension DeviceInfo {
         
         for key in scoped.keys {
             if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
+                return "1"
+            }
+        }
+        return "0"
+    }
+    
+    static var isJailbroken: String {
+        let allPaths = ["/Applications/Cydia.app",
+                        "/Library/MobileSubstrate/MobileSubstrate.dylib"]
+        for path in allPaths {
+            if FileManager.default.fileExists(atPath: path) {
                 return "1"
             }
         }
