@@ -12,7 +12,7 @@ class BaseModel: Codable {
 }
 
 class raceastModel: Codable {
-    var esee: String?
+    var byy: String?
     var stigmative: String?
     var xyz: String?
     var includeety: String?

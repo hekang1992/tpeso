@@ -260,19 +260,26 @@ class HomeViewController: BaseViewController {
             let money = allArray[0]["money"] ?? ""
             self.dataView.moneyLabel.text = "\(money)₱"
             
-            let num = String(daysFromNow(targetDateString: startTime) ?? 0)
+            let num = daysFromNow(targetDateString: startTime) ?? 0
             
-            
-            let fullText = "Started \(num) days ago"
-            let attributedString = NSMutableAttributedString(string: fullText)
-            if let boldRange = fullText.range(of: "\(num)") {
-                let nsRange = NSRange(boldRange, in: fullText)
-                attributedString.addAttributes([
-                    .font: UIFont.boldSystemFont(ofSize: 20),
-                    .foregroundColor: UIColor.black
-                ], range: nsRange)
+            var fullText = ""
+            if num < 0 {
+                fullText = "On the road now."
+                self.dataView.timeLabel.text = fullText
+                self.dataView.timeLabel.font = .boldFontOfSize(size: 15)
+                self.dataView.tnameLabel.textColor = .black
+            }else {
+                fullText = "Started \(num) days ago"
+                let attributedString = NSMutableAttributedString(string: fullText)
+                if let boldRange = fullText.range(of: "\(num)") {
+                    let nsRange = NSRange(boldRange, in: fullText)
+                    attributedString.addAttributes([
+                        .font: UIFont.boldSystemFont(ofSize: 20),
+                        .foregroundColor: UIColor.black
+                    ], range: nsRange)
+                }
+                self.dataView.timeLabel.attributedText = attributedString
             }
-            self.dataView.timeLabel.attributedText = attributedString
             
             self.dataView.timedescLabel.text = "\(startTime)-\(endTime)"
             
@@ -506,7 +513,7 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
             
-            let compressionQuality: CGFloat = 0.25
+            let compressionQuality: CGFloat = 0.5
             
             if let imageData = image.jpegData(compressionQuality: compressionQuality) {
                 print("压缩后的图片大小: \(imageData.count / 1024) KB")

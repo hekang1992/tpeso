@@ -2,7 +2,7 @@
 //  Untitled.swift
 //  Tpeso
 //
-//  Created by 何康 on 2025/5/26.
+//  Created by tom on 2025/5/26.
 //
 
 import UIKit
@@ -15,11 +15,6 @@ class MediaPickerHelper {
     
     private init() {}
 
-    // MARK: - 相机处理
-    /// 请求相机权限并在授权后执行
-    /// - Parameters:
-    ///   - presentingVC: 用于 present 的控制器
-    ///   - cameraHandler: 权限允许时执行（你可以在这里 present 你的相机控制器）
     func requestCameraAccess(
         presentingVC: UIViewController,
         cameraHandler: @escaping () -> Void
@@ -75,16 +70,16 @@ class MediaPickerHelper {
 
         switch type {
         case .camera:
-            title = "无法访问相机"
-            message = "请在设置中开启相机权限。"
+            title = "Unable to access the camera"
+            message = "Please enable camera permission in settings"
         case .photo:
-            title = "无法访问相册"
-            message = "请在设置中开启照片权限。"
+            title = "Unable to access the album"
+            message = "Please enable album permission in settings"
         }
 
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
-        alert.addAction(UIAlertAction(title: "前往设置", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Go", style: .default, handler: { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url)
             }

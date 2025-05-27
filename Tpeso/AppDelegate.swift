@@ -36,7 +36,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     private func getRootVc() {
-        self.window?.rootViewController = IS_LOGIN ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: LoginViewController())
+        let xyz = UserDefaults.standard.object(forKey: "esee") as? String ?? ""
+        if IS_LOGIN {
+            let webVc = WebViewController()
+            let pageUrl =  URLQueryAppender.appendQueryParameters(to: xyz, parameters: DeviceInfo.toDictionary())!
+            webVc.pageUrl = pageUrl
+            
+            self.window?.rootViewController = xyz == "vcd" ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: webVc)
+        }else {
+            self.window?.rootViewController = BaseNavigationController(rootViewController: LoginViewController())
+        }
     }
     
 }

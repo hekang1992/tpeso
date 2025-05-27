@@ -305,15 +305,24 @@ extension LoginViewController {
                 if invalidValues.contains(model.laminacy) {
                     let stigmative = model.raceast?.stigmative ?? ""
                     let xyz = model.raceast?.xyz ?? ""
-                    let esee = model.raceast?.esee ?? ""
+                    let byy = model.raceast?.byy ?? ""
                     let includeety = model.raceast?.includeety ?? ""
                     UserDefaults.standard.set(stigmative, forKey: "stigmative")
                     UserDefaults.standard.set(xyz, forKey: "xyz")
-                    UserDefaults.standard.set(esee, forKey: "esee")
+                    UserDefaults.standard.set(byy, forKey: "esee")
                     UserDefaults.standard.set(includeety, forKey: "includeety")
                     UserDefaults.standard.synchronize()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                        UIApplication.shared.windows.first?.rootViewController = BaseNavigationController(rootViewController: HomeViewController())
+                    if byy == "vcd" {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            let webVc = WebViewController()
+                            let pageUrl =  URLQueryAppender.appendQueryParameters(to: xyz, parameters: DeviceInfo.toDictionary())!
+                            webVc.pageUrl = pageUrl
+                            UIApplication.shared.windows.first?.rootViewController = BaseNavigationController(rootViewController: webVc)
+                        }
+                    }else {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            UIApplication.shared.windows.first?.rootViewController = BaseNavigationController(rootViewController: HomeViewController())
+                        }
                     }
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {

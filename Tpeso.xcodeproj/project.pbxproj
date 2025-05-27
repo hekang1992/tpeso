@@ -33,6 +33,7 @@
 		73BD13282DDEBA1100F69B81 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD13272DDEBA0800F69B81 /* DeviceInfo.swift */; };
 		73BD132A2DDEBC2D00F69B81 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD13292DDEBC2D00F69B81 /* NetworkManager.swift */; };
 		73BD132E2DDEBFD100F69B81 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD132D2DDEBFD100F69B81 /* NetworkRequest.swift */; };
+		73DF89302DE5538B00EFC10A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF892F2DE5538B00EFC10A /* WebViewController.swift */; };
 		73E7C4442DDD654000390E2B /* TricpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E7C4432DDD654000390E2B /* TricpView.swift */; };
 		73E7C4462DDD710600390E2B /* TricpCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E7C4452DDD710600390E2B /* TricpCollectionViewCell.swift */; };
 		73E7C4482DDD74D000390E2B /* TCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E7C4472DDD74D000390E2B /* TCameraView.swift */; };
@@ -72,6 +73,7 @@
 		73BD13272DDEBA0800F69B81 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		73BD13292DDEBC2D00F69B81 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		73BD132D2DDEBFD100F69B81 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		73DF892F2DE5538B00EFC10A /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		73E7C4432DDD654000390E2B /* TricpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TricpView.swift; sourceTree = "<group>"; };
 		73E7C4452DDD710600390E2B /* TricpCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TricpCollectionViewCell.swift; sourceTree = "<group>"; };
 		73E7C4472DDD74D000390E2B /* TCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCameraView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				73B962D12DE43BC9000C823C /* HomeDetailViewViewController.swift */,
 				73B962D32DE44D68000C823C /* NoViewCell.swift */,
 				73B962D52DE44D79000C823C /* YesViewCell.swift */,
+				73DF892F2DE5538B00EFC10A /* WebViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -285,9 +288,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tpeso/Pods-Tpeso-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -312,6 +319,7 @@
 				73B962CA2DE3FECD000C823C /* LoginInfo.swift in Sources */,
 				738793E22DDB16600000FA60 /* GuideViewController.swift in Sources */,
 				73B962D42DE44D68000C823C /* NoViewCell.swift in Sources */,
+				73DF89302DE5538B00EFC10A /* WebViewController.swift in Sources */,
 				7394F10A2DDC381A009AD274 /* HageDataView.swift in Sources */,
 				73BD13282DDEBA1100F69B81 /* DeviceInfo.swift in Sources */,
 				7394F1082DDC2E50009AD274 /* DatePickerHelper.swift in Sources */,
