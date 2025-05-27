@@ -70,12 +70,13 @@ class GuideViewController: UIViewController, UIScrollViewDelegate {
     @objc private func startApp() {
         UserDefaults.standard.set("1", forKey: "GUIDECLICK")
         UserDefaults.standard.synchronize()
-        let xyz = UserDefaults.standard.object(forKey: "esee") as? String ?? ""
+        let byy = UserDefaults.standard.object(forKey: "byy") as? String ?? ""
+        let xyz = UserDefaults.standard.object(forKey: "xyz") as? String ?? ""
         if IS_LOGIN {
             let webVc = WebViewController()
             let pageUrl =  URLQueryAppender.appendQueryParameters(to: xyz, parameters: DeviceInfo.toDictionary())!
             webVc.pageUrl = pageUrl
-            UIApplication.shared.windows.first?.rootViewController = xyz == "vcd" ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: webVc)
+            UIApplication.shared.windows.first?.rootViewController = byy == "vcd" ? BaseNavigationController(rootViewController: webVc) : BaseNavigationController(rootViewController: HomeViewController())
         }else {
             UIApplication.shared.windows.first?.rootViewController = BaseNavigationController(rootViewController: LoginViewController())
         }

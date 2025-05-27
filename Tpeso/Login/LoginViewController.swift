@@ -309,7 +309,7 @@ extension LoginViewController {
                     let includeety = model.raceast?.includeety ?? ""
                     UserDefaults.standard.set(stigmative, forKey: "stigmative")
                     UserDefaults.standard.set(xyz, forKey: "xyz")
-                    UserDefaults.standard.set(byy, forKey: "esee")
+                    UserDefaults.standard.set(byy, forKey: "byy")
                     UserDefaults.standard.set(includeety, forKey: "includeety")
                     UserDefaults.standard.synchronize()
                     if byy == "vcd" {

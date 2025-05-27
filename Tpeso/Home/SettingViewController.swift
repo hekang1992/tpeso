@@ -181,7 +181,7 @@ extension SettingViewController {
                 if invalidValues.contains(model.laminacy) {
                     UserDefaults.standard.set("", forKey: "stigmative")
                     UserDefaults.standard.set("", forKey: "xyz")
-                    UserDefaults.standard.set("", forKey: "esee")
+                    UserDefaults.standard.set("", forKey: "byy")
                     UserDefaults.standard.set("", forKey: "includeety")
                     UserDefaults.standard.synchronize()
                     
@@ -212,7 +212,7 @@ extension SettingViewController {
                 if invalidValues.contains(model.laminacy) {
                     UserDefaults.standard.set("", forKey: "stigmative")
                     UserDefaults.standard.set("", forKey: "xyz")
-                    UserDefaults.standard.set("", forKey: "esee")
+                    UserDefaults.standard.set("", forKey: "byy")
                     UserDefaults.standard.set("", forKey: "includeety")
                     UserDefaults.standard.synchronize()
                     
