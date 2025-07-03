@@ -180,9 +180,22 @@ extension WebViewController: WKScriptMessageHandler, WKNavigationDelegate {
                 let dict = [
                     "close_lid": model.close_lid,
                     "clean_hand": model.clean_hand,
+                    "sleepy_owl": model.sleepy_owl,
+                    "noisy_cat": model.noisy_cat,
+                    "angry_bee": model.angry_bee,
+                    "hungry_ant": model.hungry_ant,
+                    "fresh_snow": model.fresh_snow,
+                    "tiny_fish": model.tiny_fish,
                 ]
                 let jsonStr = self.toJsontring(dict: dict) ?? ""
-                self.toh5("meiolas('\(jsonStr)')")
+                if messageName == "polad" {
+                    self.toh5("meiolas('\(jsonStr)')")
+                }else if messageName == "mkla" {
+                    let dict = ["clean_hand": model.clean_hand,
+                                "sleepy_owl": model.sleepy_owl,]
+                    let jsonStr = self.toJsontring(dict: dict) ?? ""
+                    self.toh5("jkwoas('\(jsonStr)')")
+                }
             }
         }else if messageName == "anmls" {
             if let url = URL(string: UIApplication.openSettingsURLString) {
