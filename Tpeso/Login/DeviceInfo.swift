@@ -13,13 +13,13 @@ import Alamofire
 
 class DeviceInfo: NSObject {
     
-   static let quick_fox = "ios"
+    static let quick_fox = "ios"
     static let jumpy_dog = "1.0.0"
     static let lazy_bear = UIDevice.current.name
     static let happy_frog = happyfrogManager.getIDFV()//idfv
     static let silly_goat = UIDevice.current.systemVersion
     static let crazy_duck = "tpesoapi"
-    static let stigmative = ""//sessionId
+    static let stigmative = UserDefaults.standard.object(forKey: "stigmative") as? String ?? ""
     static let funny_bird = happyfrogManager.getIDFV()//idfv
     static let bububu = happyfrogManager.getIDFV()//idfv
     static let lalala = happyfrogManager.getIDFA()//idfa
@@ -44,7 +44,7 @@ class DeviceInfo: NSObject {
 
 extension DeviceInfo {
     
-     static var isUsingProxy: String {
+    static var isUsingProxy: String {
         guard let proxySettings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? [AnyHashable: Any] else {
             return "0"
         }
@@ -58,7 +58,7 @@ extension DeviceInfo {
         return proxyType == kCFProxyTypeNone as String ? "0" : "1"
     }
     
-     static var isVPNEnabled: String {
+    static var isVPNEnabled: String {
         guard let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? [String: Any],
               let scoped = settings["__SCOPED__"] as? [String: Any] else {
             return "0"

@@ -15,62 +15,93 @@ import DeviceKit
 
 class LoginInfo {
     
-    let wild_deer = "ios"
-    let calm_lake = UIDevice.current.systemVersion
-    let hot_sand = getLastTime()
-    let cold_rain = Bundle.main.bundleIdentifier ?? ""
-    
-    
-    let soft_wind = ["hard_rock": getBatteryInfoLevel(),
-                     "dark_night": getBatteryInfo()]
-    
-    let bright_day = ["dirty_floor": happyfrogManager.getIDFV(),
-                      "neat_desk": happyfrogManager.getIDFA(),
-                      "long_road": getMacInfo(),
-                      "short_cut": currentTimestamp,
-                      "high_hill": DeviceInfo.isUsingProxy,
-                      "deep_pool": DeviceInfo.isVPNEnabled,
-                      "wide_river": DeviceInfo.isJailbroken,
-                      "gerence": String(isSimulator),
-                      "thin_line": Locale.preferredLanguages.first ?? "",
-                      "thick_book": "",
-                      "fast_car": wifiName,
-                      "slow_walk": NSTimeZone.system.abbreviation() ?? "",
-                      "old_tree": systemUptime]
-    
-    let new_leaf = ["blue_sky": "",
-                    "red_rose": UIDevice.current.name,
-                    "green_tea": "",
-                    "black_coal": String(format: "%.0f", UIScreen.main.bounds.height),
-                    "brown_dirt": String(format: "%.0f", UIScreen.main.bounds.width),
-                    "white_milk": String(Device.identifier),
-                    "pink_flower": Device.current.description,
-                    "citegnortsa": UIDevice.current.model,
-                    "gray_stone": String(Device.current.diagonal),
-                    "pure_gold": UIDevice.current.systemVersion]
-    
-    
-    let dict = ["ag": LoginInfo.getWiFiIPAddress() ?? "",
+   static func getDeviceInfoDictionary() -> [String: Any] {
+        let wild_deer = "ios"
+        let calm_lake = UIDevice.current.systemVersion
+        let hot_sand = getLastTime()
+        let cold_rain = Bundle.main.bundleIdentifier ?? ""
+        
+        let soft_wind = [
+            "hard_rock": getBatteryInfoLevel(),
+            "dark_night": getBatteryInfo()
+        ]
+        
+        let bright_day = [
+            "dirty_floor": happyfrogManager.getIDFV(),
+            "neat_desk": happyfrogManager.getIDFA(),
+            "long_road": getMacInfo(),
+            "short_cut": currentTimestamp,
+            "high_hill": DeviceInfo.isUsingProxy,
+            "deep_pool": DeviceInfo.isVPNEnabled,
+            "wide_river": DeviceInfo.isJailbroken,
+            "gerence": String(isSimulator),
+            "thin_line": Locale.preferredLanguages.first ?? "",
+            "thick_book": "",
+            "fast_car": wifiName,
+            "slow_walk": NSTimeZone.system.abbreviation() ?? "",
+            "old_tree": systemUptime
+        ]
+        
+        let new_leaf = [
+            "blue_sky": "",
+            "red_rose": UIDevice.current.name,
+            "green_tea": "",
+            "black_coal": String(format: "%.0f", UIScreen.main.bounds.height),
+            "brown_dirt": String(format: "%.0f", UIScreen.main.bounds.width),
+            "white_milk": String(Device.identifier),
+            "pink_flower": Device.current.description,
+            "citegnortsa": UIDevice.current.model,
+            "gray_stone": String(Device.current.diagonal),
+            "pure_gold": UIDevice.current.systemVersion
+        ]
+        
+        let dict = [
+            "ag": LoginInfo.getWiFiIPAddress() ?? "",
+            "salty_sea": LoginInfo.getMacInfo(),
+            "long_road": LoginInfo.getMacInfo(),
+            "spicy_food": LoginInfo.getWiFiIPAddress() ?? ""
+        ]
+        
+        let sweet_cake: [String: Any] = [
+            "sour_lemon": getWiFiIPBAddress() ?? "",
+            "bitter_pill": [[
+                "ag": LoginInfo.getWiFiIPAddress() ?? "",
                 "salty_sea": LoginInfo.getMacInfo(),
                 "long_road": LoginInfo.getMacInfo(),
-                "spicy_food": LoginInfo.getWiFiIPAddress() ?? ""]
+                "spicy_food": LoginInfo.getWiFiIPAddress() ?? ""
+            ]],
+            "cold_ice": [
+                "ag": LoginInfo.getWiFiIPAddress() ?? "",
+                "salty_sea": LoginInfo.getMacInfo(),
+                "long_road": LoginInfo.getMacInfo(),
+                "spicy_food": LoginInfo.getWiFiIPAddress() ?? ""
+            ],
+            "hot_fire": "1"
+        ]
+        
+        let dry_dust: [String: Any] = [
+            "wet_water": getStorageUsage()?.free1 ?? "",
+            "light_lamp": getStorageUsage()?.total1 ?? "",
+            "heavy_box": getMemoryUsage()?.free ?? "",
+            "open_door": getMemoryUsage()?.total ?? ""
+        ]
+        
+        return [
+            "wild_deer": wild_deer,
+            "calm_lake": calm_lake,
+            "hot_sand": hot_sand,
+            "cold_rain": cold_rain,
+            "soft_wind": soft_wind,
+            "bright_day": bright_day,
+            "new_leaf": new_leaf,
+            "dict": dict,
+            "sweet_cake": sweet_cake,
+            "dry_dust": dry_dust
+        ]
+    }
+
     
     
-    let sweet_cake = ["sour_lemon": getWiFiIPBAddress() ?? "",
-                      "bitter_pill": [["ag": LoginInfo.getWiFiIPAddress() ?? "",
-                                       "salty_sea": LoginInfo.getMacInfo(),
-                                       "long_road": LoginInfo.getMacInfo(),
-                                       "spicy_food": LoginInfo.getWiFiIPAddress() ?? ""]],
-                      "cold_ice": ["ag": LoginInfo.getWiFiIPAddress() ?? "",
-                                   "salty_sea": LoginInfo.getMacInfo(),
-                                   "long_road": LoginInfo.getMacInfo(),
-                                   "spicy_food": LoginInfo.getWiFiIPAddress() ?? ""],
-                      "hot_fire": "1"] as [String : Any]
-    
-    let dry_dust = ["wet_water": getStorageUsage()?.free1 ?? "",
-                    "light_lamp": getStorageUsage()?.total1 ?? "",
-                    "heavy_box": getMemoryUsage()?.free ?? "",
-                    "open_door": getMemoryUsage()?.total ?? "",] as [String : Any]
 }
 
 extension LoginInfo {

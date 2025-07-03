@@ -219,6 +219,11 @@ class LoginViewController: BaseViewController {
             getloginpage()
         }).disposed(by: disposeBag)
         
+        
+        let location = LocationManager()
+        location.getLocationInfo { model in
+            
+        }
     }
     
     @objc func updateCountdown() {
