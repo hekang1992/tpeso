@@ -178,8 +178,8 @@ extension WebViewController: WKScriptMessageHandler, WKNavigationDelegate {
             let location = LocationManager()
             location.getLocationInfo { model in
                 let dict = [
-                    "close_lid": model.close_lid,
                     "clean_hand": model.clean_hand,
+                    "close_lid": model.close_lid,
                     "sleepy_owl": model.sleepy_owl,
                     "noisy_cat": model.noisy_cat,
                     "angry_bee": model.angry_bee,
@@ -189,10 +189,11 @@ extension WebViewController: WKScriptMessageHandler, WKNavigationDelegate {
                 ]
                 let jsonStr = self.toJsontring(dict: dict) ?? ""
                 if messageName == "polad" {
-                    self.toh5("meiolas('\(jsonStr)')")
+                    self.toh5("abcd('\(jsonStr)')")
                 }else if messageName == "mkla" {
                     let dict = ["clean_hand": model.clean_hand,
-                                "sleepy_owl": model.sleepy_owl,]
+                                "close_lid": model.close_lid
+                    ]
                     let jsonStr = self.toJsontring(dict: dict) ?? ""
                     self.toh5("jkwoas('\(jsonStr)')")
                 }
