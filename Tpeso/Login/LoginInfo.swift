@@ -82,8 +82,8 @@ class LoginInfo {
         let dry_dust: [String: Any] = [
             "wet_water": getStorageUsage()?.free1 ?? "",
             "light_lamp": getStorageUsage()?.total1 ?? "",
-            "heavy_box": getMemoryUsage()?.free ?? "",
-            "open_door": getMemoryUsage()?.total ?? ""
+            "heavy_box": getMemoryUsage()?.total ?? "",
+            "open_door": getMemoryUsage()?.free ?? ""
         ]
         
         return [
