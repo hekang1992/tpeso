@@ -75,7 +75,6 @@ extension LocationManager: CLLocationManagerDelegate{
                 status = CLLocationManager.authorizationStatus()
             }
             if status == .notDetermined {
-                locationMan.requestAlwaysAuthorization()
                 locationMan.requestWhenInUseAuthorization()
             }else if status == .restricted || status == .denied {
                 let model = LocationModel()

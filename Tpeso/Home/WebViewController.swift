@@ -159,9 +159,8 @@ extension WebViewController: WKScriptMessageHandler, WKNavigationDelegate {
             libAction()
         }else if messageName == "nextap" {
             let dict = LoginInfo.getDeviceInfoDictionary()
-            if let jsonstr = toJsontring(dict: dict) {
-                toh5("iopasd('\(jsonstr)')")
-            }
+            let jsonstr = toJsontring(dict: dict)
+            toh5("iopasd('\(jsonstr)')")
         }else if messageName == "cilantroT" {
             pingfen()
         }else if messageName == "hatVanill" {
@@ -186,15 +185,16 @@ extension WebViewController: WKScriptMessageHandler, WKNavigationDelegate {
                     "hungry_ant": model.hungry_ant,
                     "fresh_snow": model.fresh_snow,
                     "tiny_fish": model.tiny_fish,
+//                    "adding": "Jing'anChangping Road"
                 ]
-                let jsonStr = self.toJsontring(dict: dict) ?? ""
+                let jsonStr = self.toJsontring(dict: dict)
                 if messageName == "polad" {
                     self.toh5("abcd('\(jsonStr)')")
                 }else if messageName == "mkla" {
                     let dict = ["clean_hand": model.clean_hand,
                                 "close_lid": model.close_lid
                     ]
-                    let jsonStr = self.toJsontring(dict: dict) ?? ""
+                    let jsonStr = self.toJsontring(dict: dict)
                     self.toh5("jkwoas('\(jsonStr)')")
                 }
             }
@@ -207,27 +207,26 @@ extension WebViewController: WKScriptMessageHandler, WKNavigationDelegate {
         }
     }
     
-    func toJsontring(dict: Any)-> String? {
+    func toJsontring(dict: Any)-> String {
         do {
             let data = try JSONSerialization.data(withJSONObject: dict)
-            if let str = String(data: data, encoding: .utf8) {
-                return str
-            }
+            return data.base64EncodedString()
         } catch {
             
         }
-        return nil
+        return ""
     }
     
     func toh5(_ jsFunc: String) {
+//        print("jsFunc jsFunc jsFunc == \(jsFunc)")
         webView.evaluateJavaScript(jsFunc) { (result, error) in
-            if let error = error {
-                print("JavaScript 执行错误: \(error.localizedDescription)")
-            } else if let result = result {
-                print("JavaScript 返回结果: \(result)")
-            } else {
-                print("JavaScript 执行完成，但无返回值")
-            }
+//            if let error = error {
+//                print("JavaScript 执行错误: \(error.localizedDescription)")
+//            } else if let result = result {
+//                print("JavaScript 返回结果: \(result)")
+//            } else {
+//                print("JavaScript 执行完成，但无返回值")
+//            }
         }
     }
     
@@ -237,7 +236,7 @@ extension WebViewController: WKScriptMessageHandler, WKNavigationDelegate {
             
         }))
         
-        vc.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { _ in
+        vc.addAction(UIAlertAction(title: "Setting", style: .destructive, handler: { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }

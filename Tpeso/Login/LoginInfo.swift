@@ -48,9 +48,9 @@ class LoginInfo {
             "green_tea": "",
             "black_coal": String(format: "%.0f", UIScreen.main.bounds.height),
             "brown_dirt": String(format: "%.0f", UIScreen.main.bounds.width),
-            "white_milk": String(Device.identifier),
+            "citegnortsa": String(Device.identifier),
             "pink_flower": Device.current.description,
-            "citegnortsa": UIDevice.current.model,
+            "white_milk": UIDevice.current.model,
             "gray_stone": String(Device.current.diagonal),
             "pure_gold": UIDevice.current.systemVersion
         ]

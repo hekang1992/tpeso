@@ -25,12 +25,34 @@ extension WebViewController: CNContactPickerDelegate {
                     }
                 }else {
                     DispatchQueue.main.async {
-                        self.alertshow(str: "Contact")
+                        let vc = UIAlertController(title: "Tips", message: "To complete verification, please grant full access to your contacts. Restricted or denied permissions will prevent successful verification.", preferredStyle: .alert)
+                        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                            
+                        }))
+                        
+                        vc.addAction(UIAlertAction(title: "Setting", style: .destructive, handler: { _ in
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            }
+                        }))
+                        
+                        self.navigationController?.present(vc, animated: true)
                     }
                 }
             }
         }else {
-            self.alertshow(str: "Contact")
+            let vc = UIAlertController(title: "Tips", message: "To complete verification, please grant full access to your contacts. Restricted or denied permissions will prevent successful verification.", preferredStyle: .alert)
+            vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                
+            }))
+            
+            vc.addAction(UIAlertAction(title: "Setting", style: .destructive, handler: { _ in
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }))
+            
+            navigationController?.present(vc, animated: true)
         }
     }
     
@@ -50,10 +72,10 @@ extension WebViewController: CNContactPickerDelegate {
         let name = [contact.givenName, contact.middleName, contact.familyName].filter { !$0.isEmpty }.joined(separator: " ")
         let phone = contact.phoneNumbers.first?.value.stringValue ?? ""
         let dict = ["ag": name, "informationture": phone]
-        if let str = toJsontring(dict: dict) {
-            let funcn = "ppknow('\(str)')"
-            self.toh5(funcn)
-        }
+        let str = toJsontring(dict: dict)
+        let funcn = "ppknow('\(str)')"
+        self.toh5(funcn)
+        
         picker.dismiss(animated: true)
     }
     
@@ -75,10 +97,9 @@ extension WebViewController: CNContactPickerDelegate {
                 ]
                 param.append(contactData)
             }
-            if let str = toJsontring(dict: param) {
-                let jsfunc = "zhuxian('\(str)')"
-                self.toh5(jsfunc)
-            }
+            let str = toJsontring(dict: param)
+            let jsfunc = "zhuxian('\(str)')"
+            self.toh5(jsfunc)
         } catch {
         }
     }
