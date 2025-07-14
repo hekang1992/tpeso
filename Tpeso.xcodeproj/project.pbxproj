@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73144A3C2E2491130093FF01 /* SureDeleteTricpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73144A3B2E2491130093FF01 /* SureDeleteTricpView.swift */; };
+		73144A402E249C880093FF01 /* ChangeTricpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73144A3F2E249C880093FF01 /* ChangeTricpView.swift */; };
 		7364525A2E13CC120006DD70 /* WebViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736452592E13CC120006DD70 /* WebViewController+Delegate.swift */; };
 		738793D72DDB13F30000FA60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 738793D22DDB13F30000FA60 /* Assets.xcassets */; };
 		738793D92DDB13F30000FA60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 738793D52DDB13F30000FA60 /* LaunchScreen.storyboard */; };
@@ -45,6 +47,8 @@
 		0B452762CA0B9CB15517F4DC /* Pods-Tpeso.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tpeso.debug.xcconfig"; path = "Target Support Files/Pods-Tpeso/Pods-Tpeso.debug.xcconfig"; sourceTree = "<group>"; };
 		376872DC97D8FC2F58C37D7C /* Pods_Tpeso.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tpeso.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		727D0DEFF72C50513E6DA052 /* Pods-Tpeso.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tpeso.release.xcconfig"; path = "Target Support Files/Pods-Tpeso/Pods-Tpeso.release.xcconfig"; sourceTree = "<group>"; };
+		73144A3B2E2491130093FF01 /* SureDeleteTricpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SureDeleteTricpView.swift; sourceTree = "<group>"; };
+		73144A3F2E249C880093FF01 /* ChangeTricpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTricpView.swift; sourceTree = "<group>"; };
 		736452592E13CC120006DD70 /* WebViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WebViewController+Delegate.swift"; sourceTree = "<group>"; };
 		738793B92DDB13BA0000FA60 /* Tpeso.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tpeso.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		738793D12DDB13F30000FA60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				73B962D52DE44D79000C823C /* YesViewCell.swift */,
 				73DF892F2DE5538B00EFC10A /* WebViewController.swift */,
 				736452592E13CC120006DD70 /* WebViewController+Delegate.swift */,
+				73144A3B2E2491130093FF01 /* SureDeleteTricpView.swift */,
+				73144A3F2E249C880093FF01 /* ChangeTricpView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 				73E7C4482DDD74D000390E2B /* TCameraView.swift in Sources */,
 				73B962D62DE44D79000C823C /* YesViewCell.swift in Sources */,
 				73B962CA2DE3FECD000C823C /* LoginInfo.swift in Sources */,
+				73144A3C2E2491130093FF01 /* SureDeleteTricpView.swift in Sources */,
 				738793E22DDB16600000FA60 /* GuideViewController.swift in Sources */,
 				73B962D42DE44D68000C823C /* NoViewCell.swift in Sources */,
 				73DF89302DE5538B00EFC10A /* WebViewController.swift in Sources */,
@@ -337,6 +344,7 @@
 				73E7C4442DDD654000390E2B /* TricpView.swift in Sources */,
 				738793EC2DDB32060000FA60 /* HomeView.swift in Sources */,
 				738793EE2DDB39210000FA60 /* ApplyView.swift in Sources */,
+				73144A402E249C880093FF01 /* ChangeTricpView.swift in Sources */,
 				73B962D02DE434EC000C823C /* HomeListView.swift in Sources */,
 				738793E82DDB22F90000FA60 /* HomeViewController.swift in Sources */,
 				7394F1062DDC2949009AD274 /* ExitView.swift in Sources */,

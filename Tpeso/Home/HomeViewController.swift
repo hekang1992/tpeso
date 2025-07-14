@@ -13,6 +13,9 @@ class HomeViewController: BaseViewController {
     var editGrand: Bool = false
     var deleteGrand: Bool = false
     
+    private var scrollView: UIScrollView?
+    private var stackView: UIStackView?
+    
     lazy var homeView: HomeView = {
         let homeView = HomeView()
         homeView.isHidden = true
@@ -30,13 +33,24 @@ class HomeViewController: BaseViewController {
         return tricpimgeView
     }()
     
-    lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical       // 垂直排列
-        stackView.spacing = 5           // 间距 5 像素
-        stackView.distribution = .fill  // 填充方式（可调整）
-        stackView.alignment = .fill
-        return stackView
+//    lazy var stackView: UIStackView = {
+//        let stackView = UIStackView()
+//        stackView.axis = .vertical       // 垂直排列
+//        stackView.spacing = 5           // 间距 5 像素
+//        stackView.distribution = .fill  // 填充方式（可调整）
+//        stackView.alignment = .fill
+//        return stackView
+//    }()
+    
+    lazy var bgView: UIView = {
+        let bgView = UIView()
+        return bgView
+    }()
+    
+    lazy var imageIcon: UIImageView = {
+        let imageIcon = UIImageView()
+        imageIcon.image = UIImage(named: "detailmorepiong")
+        return imageIcon
     }()
     
     var tricpView: TricpView!
@@ -54,6 +68,7 @@ class HomeViewController: BaseViewController {
             make.edges.equalToSuperview()
         }
         
+        //add travel plan 添加旅游计划
         homeView.applyBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             self.editGrand = false
@@ -66,7 +81,49 @@ class HomeViewController: BaseViewController {
             self.navigationController?.pushViewController(stVc, animated: true)
         }).disposed(by: disposeBag)
         
-        /// 记录一笔
+        //结束这次旅行
+        dataView.deleteBlock = {
+            self.dataView.isHidden = true
+            self.homeView.isHidden = false
+        }
+        
+        //跟换旅游计划
+        dataView.changeBlock = { [weak self] in
+            guard let self = self else { return }
+            var array = PlaneManager.loadPlaneModelListFromUserDefaults()
+            if array.isEmpty {
+                ToastConfig.showMessage(form: view, message: "No past travel bills")
+            }else {
+                let changeTricpView = ChangeTricpView(frame: self.view.bounds)
+                changeTricpView.saveTricpArray = array
+                changeTricpView.tableView.reloadData()
+                let alertVc = TYAlertController(alert: changeTricpView, preferredStyle: .actionSheet)!
+                self.present(alertVc, animated: true)
+                changeTricpView.completeBlock = { [weak self] name, index in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true)
+                    if name.isEmpty {
+                        return
+                    }else {
+                        let item = array.remove(at: index)
+                        array.insert(item, at: 0)
+                        PlaneManager.deleteAllPlaneModels()
+                        var list = PlaneManager.loadPlaneModelListFromUserDefaults()
+                        for model in array {
+                             // 先加载已有的数组
+                            list.append(model)
+                            if let encoded = try? JSONEncoder().encode(list) {
+                                UserDefaults.standard.set(encoded, forKey: "PlaneModelListKey")
+                                UserDefaults.standard.synchronize()
+                            }
+                        }
+                        self.changUI(model: list[0])
+                    }
+                }
+            }
+        }
+        
+        /// 记录一笔小项
         dataView.editblock = { [weak self] btn in
             let tricpView = TricpView(frame: CGRectMake(0, 0, SCREEN_WIDTH, 690))
             let alertVc = TYAlertController(alert: tricpView, preferredStyle: .actionSheet)!
@@ -85,10 +142,11 @@ class HomeViewController: BaseViewController {
                 }
             }
             
+            //明细弹窗
             tricpView.completeblock = { [weak self] in
                 guard let self = self else { return }
                 let money = tricpView.moneyTx.text ?? "0"
-                var time = tricpView.timeBtn.titleLabel?.text ?? ""
+                let time = tricpView.timeBtn.titleLabel?.text ?? ""
                 let type = tricpView.type
                 let imagebase = tricpView.imagebase
                 if money.isEmpty {
@@ -108,15 +166,13 @@ class HomeViewController: BaseViewController {
                     return
                 }
                 
-                //时间戳
-                let hour = LoginInfo.currentTimestamp
-                let json = ["time": time,
-                            "money": money,
-                            "type": type,
-                            "hour": hour,
-                            "imagebase": imagebase]
-                
-                savetricpInfo(with: json)
+                let model = listTricpModel()
+                model.imageStr = type
+                model.money = money
+                model.timehour = time
+                model.photolst = imagebase
+                model.hour = LoginInfo.currentTimestamp
+                savetricpInfo(with: model)
             }
             
             tricpView.camerablock = { [weak self] btn in
@@ -217,18 +273,6 @@ class HomeViewController: BaseViewController {
     }
     
     
-    private func saveJourInfo(with listInfo: [String: String]) {
-        let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
-        var savedArray = UserDefaults.standard.array(forKey: includeety) as? [[String: String]] ?? []
-        savedArray.append(listInfo)
-        UserDefaults.standard.set(savedArray, forKey: includeety)
-        UserDefaults.standard.synchronize()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            self.changUI()
-            SwiftToastHud.showToastText(form: self.view, message: "Save success")
-        }
-    }
-    
     func isJourNameExists(_ name: String) -> Bool {
         if editGrand {
             return false
@@ -241,27 +285,34 @@ class HomeViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        changUI()
+        //获取最新的一个模型
+        let listArray = PlaneManager.loadPlaneModelListFromUserDefaults()
+        if let model = listArray.first {
+            changUI(model: model)
+        }else {
+            self.homeView.isHidden = false
+            self.dataView.isHidden = true
+        }
+        
     }
     
-    private func changUI() {
-        let allArray = HomeListSaveMessage.loadAllJourInfo()
-        if !allArray.isEmpty && allArray.count > 0 {
+    private func changUI(ischage: String? = "0", index: Int? = 0, model: PlaneModel) {
+        let name = model.title ?? ""
+        if !name.isEmpty {
             self.showEidtView()
+            
             self.homeView.isHidden = true
             self.dataView.isHidden = false
             
-            let name = allArray[0]["name"] ?? ""
-            self.dataView.tnameLabel.text = name
+            self.dataView.tnameLabel.text = model.title ?? ""
             
-            let startTime = allArray[0]["startTime"] ?? ""
-            let endTime = allArray[0]["endTime"] ?? ""
+            let startTime = model.starttime ?? ""
+            let endTime = model.endtime ?? ""
             
-            let money = allArray[0]["money"] ?? ""
+            let money = model.amount ?? ""
             self.dataView.moneyLabel.text = "\(money)₱"
             
-            let num = daysFromNow(targetDateString: startTime) ?? 0
-            
+            let num = self.daysFromNow(targetDateString: startTime) ?? 0
             var fullText = ""
             if num < 0 {
                 fullText = "On the road now."
@@ -289,10 +340,7 @@ class HomeViewController: BaseViewController {
             
             self.dataView.block = { [weak self] moreBtn in
                 guard let self = self else { return }
-                let bgView = UIView()
-                bgView.backgroundColor = UIColor.black.withAlphaComponent(0.35)
-                let imageIcon = UIImageView()
-                imageIcon.image = UIImage(named: "detailmorepiong")
+                self.bgView.backgroundColor = UIColor.black.withAlphaComponent(0.35)
                 if let window = UIApplication.shared.currentKeyWindow {
                     window.addSubview(bgView)
                     bgView.addSubview(imageIcon)
@@ -318,24 +366,11 @@ class HomeViewController: BaseViewController {
                         make.height.equalTo(84)
                     }
                     
+                    //删除
                     oneBtn.rx.tap.subscribe(onNext: { [weak self] in
                         guard let self = self else { return }
                         bgView.removeFromSuperview()
-                        let tricpname = self.dataView.tnameLabel.text ?? ""
-                        var allArray = HomeListSaveMessage.loadAllJourInfo()
-                        for (index ,dict) in allArray.enumerated() {
-                            let name = dict["name"] ?? ""
-                            if tricpname == name {
-                                allArray.remove(at: index)
-                                let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
-                                let key = "image_\(includeety)"
-                                UserDefaults.standard.set([], forKey: key)
-                                HomeListSaveMessage.clearAllJourInfo()
-                            }
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            self.changUI()
-                        }
+                        deleteTricp(bgView: bgView, type: "0")
                     }).disposed(by: disposeBag)
                     
                     twoBtn.rx.tap.subscribe(onNext: { [weak self] in
@@ -353,9 +388,6 @@ class HomeViewController: BaseViewController {
                 }
                 
             }
-        }else {
-            self.homeView.isHidden = false
-            self.dataView.isHidden = true
         }
     }
     
@@ -375,20 +407,49 @@ class HomeViewController: BaseViewController {
         return components.day
     }
     
-    private func popCompleteView() {
+    private func deleteTricp(bgView: UIView, type: String) {
+        if type == "1" {
+            let sureView = SureDeleteTricpView(frame: self.view.bounds)
+            let alertVc = TYAlertController(alert: sureView, preferredStyle: .alert)!
+            self.present(alertVc, animated: true)
+            sureView.block = { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            sureView.block1 = { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true) {
+                    let listArray = PlaneManager.loadPlaneModelListFromUserDefaults()
+                    let title = listArray.first?.title ?? ""
+                    PlaneManager.deletePlaneModel(withTitle: title)
+                    self.dataView.isHidden = true
+                    self.homeView.isHidden = false
+                }
+            }
+        }else {
+            let listArray = PlaneManager.loadPlaneModelListFromUserDefaults()
+            let title = listArray.first?.title ?? ""
+            PlaneManager.deletePlaneModel(withTitle: title)
+            self.dataView.isHidden = true
+            self.homeView.isHidden = false
+        }
         
+    }
+    
+    
+    //添加旅游计划
+    private func popCompleteView() {
         let compleView = ApplyView(frame: CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
         let alertVc = TYAlertController(alert: compleView, preferredStyle: .actionSheet)!
         self.present(alertVc, animated: true)
         
         if self.editGrand {
-            let allArray = HomeListSaveMessage.loadAllJourInfo()
-            let dict = allArray[0]
-            compleView.phoneTx.text = dict["name"] ?? ""
-            compleView.addTx.text = dict["money"] ?? ""
-            compleView.leftlabel.text = dict["startTime"] ?? ""
-            compleView.rightlabel.text = dict["endTime"] ?? ""
-            compleView.writeView.text = dict["desc"] ?? ""
+            let allArray = PlaneManager.loadPlaneModelListFromUserDefaults()
+            let model = allArray[0]
+            compleView.phoneTx.text = model.title;
+            compleView.addTx.text = model.amount;
+            compleView.leftlabel.text = model.starttime;
+            compleView.rightlabel.text = model.endtime;
+            compleView.writeView.text = model.desc;
         }
         
         ///savetips
@@ -446,24 +507,30 @@ class HomeViewController: BaseViewController {
             }
             
             self.dismiss(animated: true) {
-                let json: [String: String] = ["name": name,
-                                              "money": money,
-                                              "startTime": startTime,
-                                              "endTime": endTime,
-                                              "desc": desc,
-                                              "timestamp": String(Date().timeIntervalSince1970 * 1000)]
-                let tricpname = self.dataView.tnameLabel.text ?? ""
-                var allArray = HomeListSaveMessage.loadAllJourInfo()
-                for (index ,dict) in allArray.enumerated() {
-                    let name = dict["name"] ?? ""
-                    if tricpname == name {
-                        allArray.remove(at: index)
-                        let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
-                        UserDefaults.standard.set(allArray, forKey: includeety)
-                        UserDefaults.standard.synchronize()
+                let model: PlaneModel = PlaneModel()
+                model.title = name
+                model.amount = money
+                model.starttime = startTime
+                model.endtime = endTime
+                model.desc = desc
+                let allArray = PlaneManager.loadPlaneModelListFromUserDefaults()
+                if allArray.count > 0 {
+                    let editmodel = allArray[0]
+                    //如果是编辑状态,则删除被编辑的,然后在保存新的
+                    if self.editGrand {
+                        model.listTricp = editmodel.listTricp ?? []
+                        PlaneManager.deletePlaneModel(withTitle: editmodel.title ?? "")
+                    }else {
+                        model.listTricp = []
                     }
                 }
-                self.saveJourInfo(with: json)
+                                
+                //保存旅游计划
+                PlaneManager.savePlaneModelToLocalList(model)
+                //更改页面UI如果有数据的话
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    self.changUI(model: model)
+                }
             }
         }).disposed(by: disposeBag)
         
@@ -548,85 +615,88 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
         return base64String
     }
     
-    ///保存编辑
-    private func savetricpInfo(with listInfo: [String: Any]) {
-        let phone = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
-        let key = "image_\(phone)"
-        var savedArray = UserDefaults.standard.array(forKey: key) as? [[String: Any]] ?? []
-        savedArray.append(listInfo)
-        UserDefaults.standard.set(savedArray, forKey: key)
-        UserDefaults.standard.synchronize()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            self.dismiss(animated: true) {
-                self.changUI()
-                SwiftToastHud.showToastText(form: self.view, message: "Save success")
+    ///保存小项目---
+    private func savetricpInfo(with listInfo: listTricpModel) {
+        let allArray = PlaneManager.loadPlaneModelListFromUserDefaults()
+        if allArray.count > 0 {
+            let existingModel = allArray[0]
+            var updatedList = existingModel.listTricp ?? []
+            updatedList.append(listInfo)
+            let title = existingModel.title ?? ""
+            PlaneManager.updateListTricpInPlaneModel(withTitle: title, newList: updatedList)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self.dismiss(animated: true) {
+                    self.changUI(model: existingModel)
+                    SwiftToastHud.showToastText(form: self.view, message: "Save success")
+                }
             }
         }
+        
     }
     
-    private func showEidtView() {
-        // 0. 先移除旧的 scrollView 和 stackView（避免重复添加）
-        dataView.greenView.subviews.forEach {
-            if $0 is UIScrollView {
-                $0.removeFromSuperview()
+    private func showEidtView(index: Int? = 0) {
+        // 0. 清空旧视图中的内容（只移除 stackView 的内容）
+        stackView?.arrangedSubviews.forEach { view in
+            stackView?.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
+
+        // 1. 初始化 ScrollView（如果没创建过）
+        if scrollView == nil {
+            let sv = UIScrollView()
+            dataView.greenView.insertSubview(sv, belowSubview: dataView.editBtn)
+            sv.snp.makeConstraints { make in
+                make.left.bottom.equalToSuperview()
+                make.width.equalTo(SCREEN_WIDTH)
+                make.top.equalToSuperview().offset(35)
             }
+            scrollView = sv
         }
-        
-        // 1. 初始化 ScrollView
-        let scrollView = UIScrollView()
-        dataView.greenView.insertSubview(scrollView, belowSubview: dataView.editBtn)
-        scrollView.snp.makeConstraints { make in
-            make.left.bottom.equalToSuperview()
-            make.width.equalTo(SCREEN_WIDTH)
-            make.top.equalToSuperview().offset(35)
-        }
-        
-        // 2. 初始化 StackView（垂直排列，间距 5）
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        
-        scrollView.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.width.equalTo(SCREEN_WIDTH)
-            make.bottom.equalToSuperview().offset(-5) // 底部间距 5
-        }
-        
-        // 3. 加载数据
-        let phone = UserDefaults.standard.string(forKey: "includeety") ?? ""
-        let key = "image_\(phone)"
-        
-        if let jsonArray = UserDefaults.standard.array(forKey: key) as? [[String: Any]] {
-            jsonArray.forEach { dict in
-                let homeListView = HomeListView()
-                
-                homeListView.block = { [weak self] in
-                    guard let self = self else { return }
-                    let detailvc = HomeDetailViewViewController()
-                    detailvc.jsonArray = jsonArray
-                    let allArray = HomeListSaveMessage.loadAllJourInfo()
-                    detailvc.name = allArray[0]["name"] ?? ""
-                    self.navigationController?.pushViewController(detailvc, animated: true)
-                }
-                
-                let money = dict["money"] as? String ?? ""
-                let imageName = dict["type"] as? String ?? ""
-                
-                // 3.1 配置自定义视图
-                homeListView.imgerView.image = UIImage(named: imageName)
-                homeListView.nameLabel.text = "\(imageName) - ₱\(money)"
-                
-                // 3.2 固定高度（或通过约束自适应）
-                homeListView.snp.makeConstraints { make in
-                    make.height.equalTo(72) // 示例高度，按需调整
-                }
-                
-                stackView.addArrangedSubview(homeListView)
+
+        // 2. 初始化 StackView（如果没创建过）
+        if stackView == nil {
+            let sv = UIStackView()
+            sv.axis = .vertical
+            sv.spacing = 5
+            sv.distribution = .fill
+            sv.alignment = .fill
+            scrollView?.addSubview(sv)
+            sv.snp.makeConstraints { make in
+                make.top.left.right.equalToSuperview()
+                make.width.equalTo(SCREEN_WIDTH)
+                make.bottom.equalToSuperview().offset(-5)
             }
+            stackView = sv
+        }
+
+        // 3. 加载数据并填充 UI
+        let modelArray = PlaneManager.loadPlaneModelListFromUserDefaults()
+        let model = modelArray[index ?? 0]
+        let listTricp = model.listTricp ?? []
+
+        listTricp.forEach { model in
+            let homeListView = HomeListView()
+
+            homeListView.block = { [weak self] in
+                guard let self = self else { return }
+                let detailvc = HomeDetailViewViewController()
+                detailvc.jsonArray = listTricp
+                self.navigationController?.pushViewController(detailvc, animated: true)
+            }
+
+            let money = model.money ?? ""
+            let imageName = model.imageStr ?? ""
+
+            homeListView.imgerView.image = UIImage(named: imageName)
+            homeListView.nameLabel.text = "\(imageName) - ₱\(money)"
+
+            homeListView.snp.makeConstraints { make in
+                make.height.equalTo(72)
+            }
+
+            stackView?.addArrangedSubview(homeListView)
         }
     }
+
     
 }

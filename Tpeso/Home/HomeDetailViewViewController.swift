@@ -11,7 +11,7 @@ import KRProgressHUD
 
 class HomeDetailViewViewController: BaseViewController {
     
-    var sortedGroupedArray: [[String : [[String : Any]]]]?
+    var sortedGroupedArray: [[String : [listTricpModel]]]?
     
     var timeStr: String?  {
         didSet {
@@ -31,19 +31,13 @@ class HomeDetailViewViewController: BaseViewController {
         return timelabel
     }()
     
-    var jsonArray: [[String: Any]]? {
+    var jsonArray: [listTricpModel]? {
         didSet {
             
             guard let jsonArray = jsonArray else { return }
             
             // 1. 将 time 统一转为 String
-            let grouped = Dictionary(grouping: jsonArray) { element -> String in
-                if let time = element["time"] as? String {
-                    return time
-                } else {
-                    return "unknown"
-                }
-            }
+            let grouped = Dictionary(grouping: jsonArray, by: { $0.timehour ?? "" })
             
             // 2. 按 "type" 排序 (a, b, c...)
             let sortedGroups = grouped.sorted { $0.key < $1.key }
@@ -148,7 +142,8 @@ class HomeDetailViewViewController: BaseViewController {
         }
         
         let desclabel = UILabel()
-        desclabel.text = "Program Name"
+        let model = PlaneManager.loadPlaneModelListFromUserDefaults().first
+        desclabel.text = model?.title ?? ""
         desclabel.font = .regularFontOfSize(size: 14)
         desclabel.textAlignment = .left
         desclabel.textColor = UIColor("#333333")
@@ -226,10 +221,10 @@ extension HomeDetailViewViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let itemsInSection = sortedGroupedArray?[indexPath.section].values.first {
             let item = itemsInSection[indexPath.row]
-            let name = item["type"] as? String ?? ""
-            let hour = item["hour"] as? String ?? ""
-            let money = item["money"] as? String ?? ""
-            let images = item["imagebase"] as? [String] ?? []
+            let name = item.imageStr ?? ""
+            let hour = item.timehour ?? ""
+            let money = item.money ?? ""
+            let images = item.photolst ?? []
             if images.count > 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "YesViewCell", for: indexPath) as! YesViewCell
                 cell.imgerView.image = UIImage(named: name )

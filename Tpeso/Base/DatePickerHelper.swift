@@ -44,20 +44,6 @@ class SwiftToastHud {
     }
 }
 
-class HomeListSaveMessage {
-    
-    static func loadAllJourInfo() -> [[String: String]] {
-        let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
-        return UserDefaults.standard.array(forKey: includeety) as? [[String: String]] ?? []
-    }
-    
-    static func clearAllJourInfo() {
-        let includeety = UserDefaults.standard.object(forKey: "includeety") as? String ?? ""
-        UserDefaults.standard.removeObject(forKey: includeety)
-        UserDefaults.standard.synchronize()
-    }
-    
-}
 
 extension UIApplication {
     var currentKeyWindow: UIWindow? {

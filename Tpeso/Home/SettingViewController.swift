@@ -187,6 +187,8 @@ extension SettingViewController {
                     
                     UIApplication.shared.windows.first?.rootViewController = IS_LOGIN ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: LoginViewController())
                     
+                    PlaneManager.deleteAllPlaneModels()
+                    
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                     ToastConfig.showMessage(form: self.view, message: model.worldan ?? "")
@@ -217,6 +219,8 @@ extension SettingViewController {
                     UserDefaults.standard.synchronize()
                     
                     UIApplication.shared.windows.first?.rootViewController = IS_LOGIN ? BaseNavigationController(rootViewController: HomeViewController()) : BaseNavigationController(rootViewController: LoginViewController())
+                    
+                    PlaneManager.deleteAllPlaneModels()
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                     ToastConfig.showMessage(form: self.view, message: model.worldan ?? "")
